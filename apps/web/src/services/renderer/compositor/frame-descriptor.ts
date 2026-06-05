@@ -6,7 +6,6 @@ import type { CanvasRenderer } from "../canvas-renderer";
 import { createCanvasSurface } from "../canvas-utils";
 import { BlurBackgroundNode } from "../nodes/blur-background-node";
 import { ColorNode } from "../nodes/color-node";
-import { EffectLayerNode } from "../nodes/effect-layer-node";
 import {
 	GraphicNode,
 	type ResolvedGraphicNodeState,
@@ -120,16 +119,6 @@ async function collectNode({
 		return;
 	}
 
-	if (node instanceof EffectLayerNode) {
-		if (!node.resolved || node.resolved.passes.length === 0) {
-			return;
-		}
-		items.push({
-			type: "sceneEffect",
-			effectPassGroups: [node.resolved.passes],
-		});
-		return;
-	}
 
 	if (node instanceof BlurBackgroundNode) {
 		if (!node.resolved) {
@@ -268,7 +257,7 @@ async function collectVisualSourceNode({
 		transform,
 		opacity: node.resolved.opacity,
 		blendMode: node.params.blendMode ?? "normal",
-		effectPassGroups: node.resolved.effectPasses,
+		effectPassGroups: [],
 		mask,
 	});
 	if (strokeLayer) {
@@ -319,7 +308,7 @@ function collectTextNode({
 		transform: fullCanvasTransform(renderer),
 		opacity: node.resolved.opacity,
 		blendMode: node.params.blendMode ?? "normal",
-		effectPassGroups: node.resolved.effectPasses,
+		effectPassGroups: [],
 		mask: null,
 	});
 }

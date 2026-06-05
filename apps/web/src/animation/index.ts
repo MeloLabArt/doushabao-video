@@ -51,14 +51,6 @@ export {
 } from "./graphic-param-channel";
 
 export {
-	buildEffectParamPath,
-	isEffectParamPath,
-	parseEffectParamPath,
-	removeEffectParamKeyframe,
-	resolveEffectParamsAtTime,
-} from "./effect-param-channel";
-
-export {
 	getGroupKeyframesAtTime,
 	hasGroupKeyframeAtTime,
 	type GroupKeyframeRef,

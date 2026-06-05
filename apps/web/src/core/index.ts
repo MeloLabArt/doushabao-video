@@ -10,7 +10,6 @@ import { AudioManager } from "./managers/audio-manager";
 import { SelectionManager } from "./managers/selection-manager";
 import { ClipboardManager } from "./managers/clipboard-manager";
 import { DiagnosticsManager } from "./managers/diagnostics-manager";
-import { registerDefaultEffects } from "@/effects";
 import { registerDefaultMasks } from "@/masks";
 import { registerTranscriptionDiagnostics } from "@/transcription/diagnostics";
 
@@ -30,7 +29,6 @@ export class EditorCore {
 	public readonly diagnostics: DiagnosticsManager;
 
 	private constructor() {
-		registerDefaultEffects();
 		registerDefaultMasks();
 		this.command = new CommandManager(this);
 		this.timeline = new TimelineManager(this);

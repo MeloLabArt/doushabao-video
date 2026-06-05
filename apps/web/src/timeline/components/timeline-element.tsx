@@ -18,7 +18,6 @@ import { getElementKeyframes } from "@/animation";
 import {
 	canElementHaveAudio,
 	canElementBeHidden,
-	hasElementEffects,
 	hasMediaId,
 	timelineTimeToPixels,
 	timelineTimeToSnappedPixels,
@@ -81,7 +80,6 @@ import { uppercase } from "@/utils/string";
 import { useMemo, type ComponentProps, type ReactNode } from "react";
 import type { SelectedKeyframeRef, ElementKeyframe } from "@/animation/types";
 import { cn } from "@/utils/ui";
-import { usePropertiesStore } from "@/components/editor/panels/properties/stores/properties-store";
 import { getTrackTypeForElementType } from "@/timeline/placement/compatibility";
 import { useTimelineStore } from "@/timeline/timeline-store";
 import { KEYFRAME_LANE_HEIGHT_PX } from "./layout";
@@ -917,21 +915,6 @@ function TextElementContent({
 	);
 }
 
-function EffectElementContent({
-	element,
-}: {
-	element: Extract<TimelineElementType, { type: "effect" }>;
-}) {
-	return (
-		<div className="flex size-full items-center justify-start gap-1 pl-2">
-			<HugeiconsIcon
-				icon={MagicWand05Icon}
-				className="size-4 shrink-0 text-white"
-			/>
-			<span className="truncate text-xs text-white">{element.name}</span>
-		</div>
-	);
-}
 
 function StickerElementContent({
 	element,
@@ -1053,35 +1036,6 @@ function AudioElementContent({
 	);
 }
 
-function EffectsButton({
-	element,
-	track,
-}: {
-	element: VideoElement | ImageElement;
-	track: TimelineTrack;
-}) {
-	const editor = useEditor();
-	const setActiveTab = usePropertiesStore((s) => s.setActiveTab);
-
-	const handleClick = (event: React.MouseEvent) => {
-		event.stopPropagation();
-		editor.selection.setSelectedElements({
-			elements: [{ trackId: track.id, elementId: element.id }],
-		});
-		setActiveTab({ elementType: element.type, tabId: "effects" });
-	};
-
-	return (
-		<button
-			type="button"
-			className="flex shrink-0 justify-center text-white cursor-pointer"
-			onMouseDown={(event) => event.stopPropagation()}
-			onClick={handleClick}
-		>
-			<HugeiconsIcon icon={MagicWand05Icon} size={12} />
-		</button>
-	);
-}
 
 function TiledMediaContent({
 	element,
@@ -1122,15 +1076,7 @@ function TiledMediaContent({
 					pointerEvents: "none",
 				}}
 			/>
-			<MediaElementHeader
-				name={mediaAsset?.name}
-				leading={
-					hasElementEffects({ element }) ? (
-						<EffectsButton element={element} track={track} />
-					) : null
-				}
-				hasFade={true}
-			/>
+tttt<MediaElementHeader name={mediaAsset?.name} hasFade={true} />
 		</>
 	);
 }
@@ -1169,8 +1115,6 @@ function ElementContent({ element, track }: ElementContentProps) {
 	switch (element.type) {
 		case "text":
 			return <TextElementContent element={element} />;
-		case "effect":
-			return <EffectElementContent element={element} />;
 		case "sticker":
 			return <StickerElementContent element={element} />;
 		case "graphic":

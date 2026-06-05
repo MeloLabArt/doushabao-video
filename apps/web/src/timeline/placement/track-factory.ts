@@ -1,7 +1,6 @@
 import { DEFAULT_TRACK_NAMES } from "@/timeline/tracks";
 import type {
 	AudioTrack,
-	EffectTrack,
 	GraphicTrack,
 	TextTrack,
 	TrackType,
@@ -45,15 +44,6 @@ export function buildEmptyTrack({
 	type: "graphic";
 	name?: string;
 }): GraphicTrack;
-export function buildEmptyTrack({
-	id,
-	type,
-	name,
-}: {
-	id: string;
-	type: "effect";
-	name?: string;
-}): EffectTrack;
 
 export function buildEmptyTrack({
 	id,
@@ -108,14 +98,6 @@ export function buildEmptyTrack({
 				type: "audio",
 				elements: [],
 				muted: false,
-			};
-		case "effect":
-			return {
-				id,
-				name: trackName,
-				type: "effect",
-				elements: [],
-				hidden: false,
 			};
 		default:
 			throw new Error(`Unsupported track type: ${type}`);

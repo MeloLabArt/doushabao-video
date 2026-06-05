@@ -1,12 +1,5 @@
 import { mediaTimeToSeconds, roundMediaTime } from "@/wasm";
 import { getElementLocalTime } from "@/animation";
-import { resolveEffectParamsAtTime } from "@/animation/effect-param-channel";
-import {
-	buildGaussianBlurPasses,
-	intensityToSigma,
-} from "@/effects/definitions/blur";
-import { effectsRegistry, resolveEffectPasses } from "@/effects";
-import type { Effect, EffectPass } from "@/effects/types";
 import { getSourceTimeAtClipTime } from "@/retime";
 import {
 	DEFAULT_GRAPHIC_SOURCE_SIZE,
@@ -27,10 +20,6 @@ import {
 	type BackdropSource,
 	type ResolvedBlurBackgroundNodeState,
 } from "./nodes/blur-background-node";
-import {
-	EffectLayerNode,
-	type ResolvedEffectLayerNodeState,
-} from "./nodes/effect-layer-node";
 import {
 	GraphicNode,
 	type ResolvedGraphicNodeState,
@@ -87,45 +76,11 @@ async function resolveNode({
 		node.resolved = resolveTextNode({ node, context });
 	} else if (node instanceof BlurBackgroundNode) {
 		node.resolved = await resolveBlurBackgroundNode({ node, context });
-	} else if (node instanceof EffectLayerNode) {
-		node.resolved = resolveEffectLayerNode({ node, context });
 	}
 
 	await Promise.all(
 		node.children.map((child) => resolveNode({ node: child, context })),
 	);
-}
-
-function resolveEffectPassGroups({
-	effects,
-	animations,
-	localTime,
-	width,
-	height,
-}: {
-	effects: Effect[] | undefined;
-	animations: VisualNodeParams["animations"];
-	localTime: number;
-	width: number;
-	height: number;
-}): EffectPass[][] {
-	return (effects ?? [])
-		.filter((effect) => effect.enabled)
-		.map((effect) => {
-			const resolvedParams = resolveEffectParamsAtTime({
-				effectId: effect.id,
-				params: effect.params,
-				animations,
-				localTime,
-			});
-			const definition = effectsRegistry.get(effect.type);
-			return resolveEffectPasses({
-				definition,
-				effectParams: resolvedParams,
-				width,
-				height,
-			});
-		});
 }
 
 function resolveVisualState({
@@ -159,28 +114,11 @@ function resolveVisualState({
 		animations: params.animations,
 		localTime,
 	});
-	const containScale = Math.min(
-		context.renderer.width / sourceWidth,
-		context.renderer.height / sourceHeight,
-	);
-	const effectWidth = Math.round(
-		Math.abs(sourceWidth * containScale * transform.scaleX),
-	);
-	const effectHeight = Math.round(
-		Math.abs(sourceHeight * containScale * transform.scaleY),
-	);
 
 	return {
 		localTime,
 		transform,
 		opacity,
-		effectPasses: resolveEffectPassGroups({
-			effects: params.effects,
-			animations: params.animations,
-			localTime,
-			width: effectWidth,
-			height: effectHeight,
-		}),
 	};
 }
 
@@ -359,13 +297,6 @@ function resolveTextNode({
 			propertyPath: "background.color",
 			localTime,
 		}),
-		effectPasses: resolveEffectPassGroups({
-			effects: node.params.effects,
-			animations: node.params.animations,
-			localTime,
-			width: context.renderer.width,
-			height: context.renderer.height,
-		}),
 		measuredText: measureTextElement({
 			element: node.params,
 			canvasHeight: node.params.canvasHeight,
@@ -447,33 +378,75 @@ async function resolveBackdropSource({
 	};
 }
 
-function resolveEffectLayerNode({
-	node,
-	context,
+/* ---- Gaussian blur utilities (formerly in effects/definitions/blur.ts) ---- */
+
+type EffectPass = {
+	shader: string;
+	uniforms: Record<string, number | number[]>;
+};
+
+const GAUSSIAN_BLUR_SHADER = "gaussian-blur";
+const MAX_SINGLE_PASS_SIGMA = 10;
+const MAX_STEP = 4;
+const MAX_EFFECTIVE_SIGMA = MAX_SINGLE_PASS_SIGMA * MAX_STEP;
+const MAX_ITERATIONS = 8;
+const INTENSITY_TO_SIGMA_DIVISOR = 5;
+
+function buildGaussianBlurPasses({
+	sigmaX,
+	sigmaY,
 }: {
-	node: EffectLayerNode;
-	context: ResolveContext;
-}): ResolvedEffectLayerNodeState | null {
-	const time = context.time;
-	if (
-		time < node.params.timeOffset - 1e-6 ||
-		time >= node.params.timeOffset + node.params.duration + 1e-6
-	) {
-		return null;
-	}
+	sigmaX: number;
+	sigmaY: number;
+}): EffectPass[] {
+	const maxSigma = Math.max(sigmaX, sigmaY);
+	if (maxSigma < 0.001) return [];
 
-	const definition = effectsRegistry.get(node.params.effectType);
-	const passes = resolveEffectPasses({
-		definition,
-		effectParams: node.params.effectParams,
-		width: context.renderer.width,
-		height: context.renderer.height,
-	});
-	if (passes.length === 0) {
-		return null;
-	}
+	const iterations = Math.min(
+		MAX_ITERATIONS,
+		Math.max(
+			1,
+			Math.ceil(
+				(maxSigma * maxSigma) /
+					(MAX_EFFECTIVE_SIGMA * MAX_EFFECTIVE_SIGMA),
+			),
+		),
+	);
+	const perPassSigmaX = sigmaX / Math.sqrt(iterations);
+	const perPassSigmaY = sigmaY / Math.sqrt(iterations);
+	const stepX = Math.max(1, perPassSigmaX / MAX_SINGLE_PASS_SIGMA);
+	const stepY = Math.max(1, perPassSigmaY / MAX_SINGLE_PASS_SIGMA);
 
-	return {
-		passes,
-	};
+	const passes: EffectPass[] = [];
+	for (let i = 0; i < iterations; i++) {
+		passes.push({
+			shader: GAUSSIAN_BLUR_SHADER,
+			uniforms: {
+				u_sigma: perPassSigmaX,
+				u_step: stepX,
+				u_direction: [1, 0],
+			},
+		});
+		passes.push({
+			shader: GAUSSIAN_BLUR_SHADER,
+			uniforms: {
+				u_sigma: perPassSigmaY,
+				u_step: stepY,
+				u_direction: [0, 1],
+			},
+		});
+	}
+	return passes;
+}
+
+function intensityToSigma({
+	intensity,
+	resolution,
+	reference,
+}: {
+	intensity: number;
+	resolution: number;
+	reference: number;
+}): number {
+	return (intensity / INTENSITY_TO_SIGMA_DIVISOR) * (resolution / reference);
 }

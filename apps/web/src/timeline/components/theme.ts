@@ -16,7 +16,7 @@ export const TIMELINE_TRACK_THEME: Record<
 		waveformColor: TIMELINE_AUDIO_WAVEFORM_COLOR,
 	},
 	graphic: { elementClassName: "bg-[#BA5D7A]" },
-	effect: { elementClassName: "bg-[#5d93ba]" },
+
 } as const;
 
 export const SELECTED_TRACK_ROW_CLASS = "bg-accent/50";

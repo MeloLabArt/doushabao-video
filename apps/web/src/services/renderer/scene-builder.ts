@@ -8,7 +8,6 @@ import { StickerNode } from "./nodes/sticker-node";
 import { GraphicNode } from "./nodes/graphic-node";
 import { ColorNode } from "./nodes/color-node";
 import { BlurBackgroundNode } from "./nodes/blur-background-node";
-import { EffectLayerNode } from "./nodes/effect-layer-node";
 import type { AnyBaseNode } from "./nodes/base-node";
 import type { TBackground, TCanvasSize } from "@/project/types";
 import { DEFAULT_BACKGROUND_BLUR_INTENSITY } from "@/background/blur";
@@ -47,17 +46,6 @@ function buildTrackNodes({
 		const elements = getVisibleSortedElements({ track });
 
 		for (const element of elements) {
-			if (element.type === "effect") {
-				nodes.push(
-					new EffectLayerNode({
-						effectType: element.effectType,
-						effectParams: element.params,
-						timeOffset: element.startTime,
-						duration: element.duration,
-					}),
-				);
-				continue;
-			}
 
 			if (element.type === "video" || element.type === "image") {
 				const mediaAsset = mediaMap.get(element.mediaId);
@@ -80,7 +68,6 @@ function buildTrackNodes({
 							animations: element.animations,
 							opacity: readOpacityFromParams({ params: element.params }),
 							blendMode: readBlendModeFromParams({ params: element.params }),
-							effects: element.effects ?? [],
 							masks: element.masks ?? [],
 						}),
 					);
@@ -97,7 +84,6 @@ function buildTrackNodes({
 							animations: element.animations,
 							opacity: readOpacityFromParams({ params: element.params }),
 							blendMode: readBlendModeFromParams({ params: element.params }),
-							effects: element.effects ?? [],
 							masks: element.masks ?? [],
 							...(isPreview && {
 								maxSourceSize: PREVIEW_MAX_IMAGE_SIZE,
@@ -117,7 +103,6 @@ function buildTrackNodes({
 						canvasCenter: { x: canvasSize.width / 2, y: canvasSize.height / 2 },
 						canvasHeight: canvasSize.height,
 						textBaseline: "middle",
-						effects: element.effects ?? [],
 					}),
 				);
 			}
@@ -136,7 +121,6 @@ function buildTrackNodes({
 						animations: element.animations,
 						opacity: readOpacityFromParams({ params: element.params }),
 						blendMode: readBlendModeFromParams({ params: element.params }),
-						effects: element.effects ?? [],
 					}),
 				);
 			}
@@ -154,7 +138,6 @@ function buildTrackNodes({
 						animations: element.animations,
 						opacity: readOpacityFromParams({ params: element.params }),
 						blendMode: readBlendModeFromParams({ params: element.params }),
-						effects: element.effects ?? [],
 						masks: element.masks ?? [],
 					}),
 				);

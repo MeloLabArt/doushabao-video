@@ -4,12 +4,8 @@ import type {
 	NumericSpec,
 } from "@/animation/types";
 import {
-	parseEffectParamPath,
-} from "@/animation/effect-param-channel";
-import {
 	parseGraphicParamPath,
 } from "@/animation/graphic-param-channel";
-import { effectsRegistry, registerDefaultEffects } from "@/effects";
 import { getGraphicDefinition } from "@/graphics";
 import {
 	coerceParamValue,
@@ -25,7 +21,6 @@ import {
 	getElementParam,
 } from "@/params/registry";
 import type { TimelineElement } from "@/timeline";
-import { isVisualElement } from "@/timeline/element-utils";
 
 export interface AnimationPathDescriptor {
 	channelLayout: ParamChannelLayout;
@@ -131,49 +126,6 @@ function buildGraphicParamDescriptor({
 	});
 }
 
-function buildEffectParamDescriptor({
-	element,
-	effectId,
-	paramKey,
-}: {
-	element: TimelineElement;
-	effectId: string;
-	paramKey: string;
-}): AnimationPathDescriptor | null {
-	if (!isVisualElement(element)) {
-		return null;
-	}
-
-	const effect = element.effects?.find((candidate) => candidate.id === effectId);
-	if (!effect) {
-		return null;
-	}
-
-	registerDefaultEffects();
-	const definition = effectsRegistry.get(effect.type);
-	const param = definition.params.find((candidate) => candidate.key === paramKey);
-	if (!param) {
-		return null;
-	}
-
-	return buildParamDescriptor({
-		param,
-		baseParams: effect.params,
-		setParams: (params) => ({
-			...element,
-			effects:
-				element.effects?.map((candidate) =>
-					candidate.id !== effectId
-						? candidate
-						: {
-								...candidate,
-								params,
-							},
-				) ?? element.effects,
-		}),
-	});
-}
-
 export function resolveAnimationTarget({
 	element,
 	path,
@@ -194,15 +146,6 @@ export function resolveAnimationTarget({
 		return buildGraphicParamDescriptor({
 			element,
 			paramKey: graphicParamTarget.paramKey,
-		});
-	}
-
-	const effectParamTarget = parseEffectParamPath({ propertyPath: path });
-	if (effectParamTarget) {
-		return buildEffectParamDescriptor({
-			element,
-			effectId: effectParamTarget.effectId,
-			paramKey: effectParamTarget.paramKey,
 		});
 	}
 

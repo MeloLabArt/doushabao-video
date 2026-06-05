@@ -7,5 +7,4 @@ export { ToggleSourceAudioSeparationCommand } from "./toggle-source-audio-separa
 export { MoveElementCommand } from "./move-elements";
 
 export * from "./keyframes";
-export * from "./effects";
 export * from "./masks";

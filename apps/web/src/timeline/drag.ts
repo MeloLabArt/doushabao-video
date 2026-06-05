@@ -1,4 +1,4 @@
-import type { MaskableElement, VisualElement } from "./types";
+import type { MaskableElement } from "./types";
 import type { ParamValues } from "@/params";
 
 interface BaseDragData {
@@ -28,15 +28,8 @@ export interface GraphicDragData extends BaseDragData {
 	params: Partial<ParamValues>;
 }
 
-export interface EffectDragData extends BaseDragData {
-	type: "effect";
-	effectType: string;
-	targetElementTypes: VisualElement["type"][];
-}
-
 export type TimelineDragData =
 	| MediaDragData
 	| TextDragData
 	| StickerDragData
-	| GraphicDragData
-	| EffectDragData;
+	| GraphicDragData;

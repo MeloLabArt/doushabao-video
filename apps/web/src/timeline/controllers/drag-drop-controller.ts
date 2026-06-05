@@ -12,7 +12,6 @@ import {
 	buildGraphicElement,
 	buildStickerElement,
 	buildElementFromMedia,
-	buildEffectElement,
 } from "@/timeline/element-utils";
 import { AddTrackCommand, InsertElementCommand } from "@/commands/timeline";
 import { BatchCommand } from "@/commands";
@@ -54,11 +53,6 @@ export interface DragDropConfig {
 		placement: { mode: "explicit"; trackId: string };
 		element: CreateTimelineElement;
 	}) => void;
-	addClipEffect: (args: {
-		trackId: string;
-		elementId: string;
-		effectType: string;
-	}) => void;
 }
 
 export interface DragDropConfigRef {
@@ -94,8 +88,6 @@ function elementTypeFromDrag({
 			return "graphic";
 		case "sticker":
 			return "sticker";
-		case "effect":
-			return "effect";
 		case "media":
 			return dragData.mediaType;
 	}
@@ -106,7 +98,6 @@ function getTargetElementTypesForDrag({
 }: {
 	dragData: TimelineDragData;
 }): string[] | undefined {
-	if (dragData.type === "effect") return dragData.targetElementTypes;
 	if (dragData.type === "media") return dragData.targetElementTypes;
 	return undefined;
 }
@@ -368,9 +359,6 @@ export class DragDropController {
 			case "sticker":
 				this.executeStickerDrop({ target, dragData });
 				return;
-			case "effect":
-				this.executeEffectDrop({ target, dragData });
-				return;
 			case "media":
 				this.executeMediaDrop({ target, dragData });
 				return;
@@ -452,42 +440,6 @@ export class DragDropController {
 			startTime: target.xPosition,
 		});
 		this.insertAtTarget({ element, target, trackType });
-	}
-
-	private executeEffectDrop({
-		target,
-		dragData,
-	}: {
-		target: DropTarget;
-		dragData: Extract<TimelineDragData, { type: "effect" }>;
-	}): void {
-		if (target.targetElement) {
-			this.config.addClipEffect({
-				trackId: target.targetElement.trackId,
-				elementId: target.targetElement.elementId,
-				effectType: dragData.effectType,
-			});
-			return;
-		}
-
-		const element = buildEffectElement({
-			effectType: dragData.effectType,
-			startTime: target.xPosition,
-		});
-
-		const existingEffectTrack = orderedTracks({
-			sceneTracks: this.config.getSceneTracks(),
-		}).find((track) => track.type === "effect");
-
-		if (existingEffectTrack) {
-			this.config.insertElement({
-				placement: { mode: "explicit", trackId: existingEffectTrack.id },
-				element,
-			});
-			return;
-		}
-
-		this.insertAtTarget({ element, target, trackType: "effect" });
 	}
 
 	private async executeFileDrop({

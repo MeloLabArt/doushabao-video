@@ -3,7 +3,6 @@ import {
 	MASKABLE_ELEMENT_TYPES,
 	RETIMABLE_ELEMENT_TYPES,
 	VISUAL_ELEMENT_TYPES,
-	type CreateEffectElement,
 	type CreateGraphicElement,
 	type CreateTimelineElement,
 	type CreateVideoElement,
@@ -24,7 +23,6 @@ import {
 } from "@/timeline";
 import { DEFAULTS } from "@/timeline/defaults";
 import type { MediaType } from "@/media/types";
-import { buildDefaultEffectInstance } from "@/effects";
 import { buildDefaultGraphicInstance } from "@/graphics";
 import type { ParamValues } from "@/params";
 import {
@@ -62,14 +60,6 @@ export function canElementBeHidden(
 	element: TimelineElement,
 ): element is VisualElement {
 	return isVisualElement(element);
-}
-
-export function hasElementEffects({
-	element,
-}: {
-	element: TimelineElement;
-}): boolean {
-	return isVisualElement(element) && (element.effects?.length ?? 0) > 0;
 }
 
 export function hasMediaId(
@@ -118,28 +108,6 @@ export function buildTextElement({
 			...buildDefaultElementParams({ type: "text" }),
 			...(t.params ?? {}),
 		},
-	};
-}
-
-export function buildEffectElement({
-	effectType,
-	startTime,
-	duration,
-}: {
-	effectType: string;
-	startTime: MediaTime;
-	duration?: MediaTime;
-}): CreateEffectElement {
-	const instance = buildDefaultEffectInstance({ effectType });
-	return {
-		type: "effect",
-		name: capitalizeFirstLetter({ string: instance.type }),
-		effectType,
-		params: instance.params,
-		duration: duration ?? DEFAULT_NEW_ELEMENT_DURATION,
-		startTime,
-		trimStart: ZERO_MEDIA_TIME,
-		trimEnd: ZERO_MEDIA_TIME,
 	};
 }
 

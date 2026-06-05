@@ -107,12 +107,6 @@ const TRACK_ICONS: Record<TimelineTrack["type"], ReactNode> = {
 		/>
 	),
 	graphic: <OcShapesIcon className="text-muted-foreground size-4 shrink-0" />,
-	effect: (
-		<HugeiconsIcon
-			icon={MagicWand05Icon}
-			className="text-muted-foreground size-4 shrink-0"
-		/>
-	),
 };
 
 export function Timeline() {

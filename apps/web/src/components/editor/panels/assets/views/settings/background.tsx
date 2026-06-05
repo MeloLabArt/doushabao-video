@@ -1,6 +1,6 @@
 "use client";
 
-import { memo, useCallback, useEffect, useMemo, useRef } from "react";
+import { memo, useCallback, useMemo } from "react";
 import { t } from "@/lib/i18n/t";
 import {
 	Section,
@@ -19,13 +19,7 @@ import { patternCraftGradients } from "@/data/colors/pattern-craft";
 import { colors } from "@/data/colors/solid";
 import { syntaxUIGradients } from "@/data/colors/syntax-ui";
 import { useEditor } from "@/editor/use-editor";
-import { effectPreviewService } from "@/services/renderer/effect-preview";
 import { cn } from "@/utils/ui";
-
-const BLUR_PREVIEW_UNIFORM_DIMENSIONS = {
-	width: 1920,
-	height: 1080,
-} as const;
 
 const CUSTOM_COLOR_SWATCH_BACKGROUND =
 	"conic-gradient(from 180deg at 50% 50%, #ff5e5e 0deg, #ffb35e 55deg, #fff26b 110deg, #6bff8f 165deg, #5ee7ff 220deg, #6f7cff 275deg, #d76bff 330deg, #ff5e9b 360deg)";
@@ -40,45 +34,17 @@ const BlurPreview = memo(
 		isSelected: boolean;
 		onSelect: () => void;
 	}) => {
-		const canvasRef = useRef<HTMLCanvasElement>(null);
-
-		useEffect(() => {
-			const renderPreview = () => {
-				if (!canvasRef.current) return;
-
-				effectPreviewService.renderPreview({
-					effectType: "blur",
-					params: { intensity: blur.value },
-					targetCanvas: canvasRef.current,
-					uniformDimensions: BLUR_PREVIEW_UNIFORM_DIMENSIONS,
-				});
-			};
-
-			renderPreview();
-			return effectPreviewService.onPreviewImageReady({
-				callback: renderPreview,
-			});
-		}, [blur.value]);
-
 		return (
 			<button
 				className={cn(
-					"border-foreground/15 hover:border-primary relative aspect-square size-20 cursor-pointer overflow-hidden rounded-sm border",
+					"border-foreground/15 hover:border-primary flex aspect-square size-20 cursor-pointer items-center justify-center rounded-sm border p-1 text-center text-xs",
 					isSelected && "border-primary border-2",
 				)}
 				onClick={onSelect}
 				type="button"
 				aria-label={t("settingsPanel.selectBlur", { label: blur.label })}
 			>
-				<canvas
-					ref={canvasRef}
-					className="absolute inset-0 h-full w-full object-cover"
-				/>
-				<div className="absolute right-1 bottom-1 left-1 text-center">
-					<span className="rounded bg-black/50 px-1 text-xs text-white">
-						{blur.label}
-					</span>
-				</div>
+				{blur.label}
 			</button>
 		);
 	},

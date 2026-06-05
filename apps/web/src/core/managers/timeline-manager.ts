@@ -45,17 +45,10 @@ import {
 	RemoveKeyframeCommand,
 	RetimeKeyframeCommand,
 	UpdateScalarKeyframeCurveCommand,
-	AddClipEffectCommand,
 	DeleteFreeformPathMaskPointsCommand,
 	InsertFreeformPathMaskPointCommand,
-	RemoveClipEffectCommand,
-	UpdateClipEffectParamsCommand,
-	ToggleClipEffectCommand,
-	ReorderClipEffectsCommand,
 	RemoveMaskCommand,
 	ToggleMaskInvertedCommand,
-	UpsertEffectParamKeyframeCommand,
-	RemoveEffectParamKeyframeCommand,
 	ToggleSourceAudioSeparationCommand,
 } from "@/commands/timeline";
 import type { InsertElementParams } from "@/commands/timeline/element/insert-element";
@@ -297,40 +290,7 @@ export class TimelineManager {
 		}
 	}
 
-	addClipEffect({
-		trackId,
-		elementId,
-		effectType,
-	}: {
-		trackId: string;
-		elementId: string;
-		effectType: string;
-	}): string {
-		const command = new AddClipEffectCommand({
-			trackId,
-			elementId,
-			effectType,
-		});
-		this.editor.command.execute({ command });
-		return command.getEffectId() ?? "";
-	}
 
-	removeClipEffect({
-		trackId,
-		elementId,
-		effectId,
-	}: {
-		trackId: string;
-		elementId: string;
-		effectId: string;
-	}): void {
-		const command = new RemoveClipEffectCommand({
-			trackId,
-			elementId,
-			effectId,
-		});
-		this.editor.command.execute({ command });
-	}
 
 	removeMask({
 		trackId,
@@ -398,48 +358,7 @@ export class TimelineManager {
 		this.editor.command.execute({ command });
 	}
 
-	updateClipEffectParams({
-		trackId,
-		elementId,
-		effectId,
-		params,
-		pushHistory = true,
-	}: {
-		trackId: string;
-		elementId: string;
-		effectId: string;
-		params: Partial<ParamValues>;
-		pushHistory?: boolean;
-	}): void {
-		const command = new UpdateClipEffectParamsCommand({
-			trackId,
-			elementId,
-			effectId,
-			params,
-		});
-		if (pushHistory) {
-			this.editor.command.execute({ command });
-		} else {
-			command.execute();
-		}
-	}
 
-	toggleClipEffect({
-		trackId,
-		elementId,
-		effectId,
-	}: {
-		trackId: string;
-		elementId: string;
-		effectId: string;
-	}): void {
-		const command = new ToggleClipEffectCommand({
-			trackId,
-			elementId,
-			effectId,
-		});
-		this.editor.command.execute({ command });
-	}
 
 	toggleMaskInverted({
 		trackId,
@@ -458,25 +377,6 @@ export class TimelineManager {
 		this.editor.command.execute({ command });
 	}
 
-	reorderClipEffects({
-		trackId,
-		elementId,
-		fromIndex,
-		toIndex,
-	}: {
-		trackId: string;
-		elementId: string;
-		fromIndex: number;
-		toIndex: number;
-	}): void {
-		const command = new ReorderClipEffectsCommand({
-			trackId,
-			elementId,
-			fromIndex,
-			toIndex,
-		});
-		this.editor.command.execute({ command });
-	}
 
 	upsertKeyframes({
 		keyframes,
@@ -644,60 +544,7 @@ export class TimelineManager {
 		this.editor.command.execute({ command });
 	}
 
-	upsertEffectParamKeyframe({
-		trackId,
-		elementId,
-		effectId,
-		paramKey,
-		time,
-		value,
-		interpolation,
-		keyframeId,
-	}: {
-		trackId: string;
-		elementId: string;
-		effectId: string;
-		paramKey: string;
-		time: MediaTime;
-		value: number;
-		interpolation?: "linear" | "hold";
-		keyframeId?: string;
-	}): void {
-		const command = new UpsertEffectParamKeyframeCommand({
-			trackId,
-			elementId,
-			effectId,
-			paramKey,
-			time,
-			value,
-			interpolation,
-			keyframeId,
-		});
-		this.editor.command.execute({ command });
-	}
 
-	removeEffectParamKeyframe({
-		trackId,
-		elementId,
-		effectId,
-		paramKey,
-		keyframeId,
-	}: {
-		trackId: string;
-		elementId: string;
-		effectId: string;
-		paramKey: string;
-		keyframeId: string;
-	}): void {
-		const command = new RemoveEffectParamKeyframeCommand({
-			trackId,
-			elementId,
-			effectId,
-			paramKey,
-			keyframeId,
-		});
-		this.editor.command.execute({ command });
-	}
 
 	isPreviewActive(): boolean {
 		return this.previewOverlay.size > 0;

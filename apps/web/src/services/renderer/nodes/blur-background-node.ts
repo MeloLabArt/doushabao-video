@@ -1,4 +1,4 @@
-import type { EffectPass } from "@/effects/types";
+import type { EffectPass } from "@/services/renderer/compositor/types";
 import type { RetimeConfig } from "@/timeline";
 import { BaseNode } from "./base-node";
 

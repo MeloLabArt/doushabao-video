@@ -1,5 +1,9 @@
 import type { BlendMode } from "@/rendering";
-import type { EffectPass } from "@/effects/types";
+
+export type EffectPass = {
+	shader: string;
+	uniforms: Record<string, number | number[]>;
+};
 
 export type FrameDescriptor = {
 	width: number;
@@ -17,11 +21,7 @@ export type FrameItemDescriptor =
 			transform: QuadTransformDescriptor;
 			opacity: number;
 			blendMode: BlendMode;
-			effectPassGroups: EffectPass[][];
 			mask: LayerMaskDescriptor | null;
-	  }
-	| {
-			type: "sceneEffect";
 			effectPassGroups: EffectPass[][];
 	  };
 

@@ -11,9 +11,6 @@ export function getDefaultInsertIndexForTrack({
 		return tracks.overlay.length + 1 + tracks.audio.length;
 	}
 
-	if (trackType === "effect") {
-		return 0;
-	}
 
 	return tracks.overlay.length;
 }

@@ -1,5 +1,4 @@
 import type { ElementAnimations } from "@/animation/types";
-import type { Effect } from "@/effects/types";
 import type { Mask } from "@/masks/types";
 import type { ParamValues } from "@/params";
 import type { MediaTime } from "@/wasm";
@@ -26,7 +25,7 @@ export interface TScene {
 	updatedAt: Date;
 }
 
-export type TrackType = "video" | "text" | "audio" | "graphic" | "effect";
+export type TrackType = "video" | "text" | "audio" | "graphic";
 
 interface BaseTrack {
 	id: string;
@@ -58,20 +57,13 @@ export interface GraphicTrack extends BaseTrack {
 	hidden: boolean;
 }
 
-export interface EffectTrack extends BaseTrack {
-	type: "effect";
-	elements: EffectElement[];
-	hidden: boolean;
-}
-
 export type TimelineTrack =
 	| VideoTrack
 	| TextTrack
 	| AudioTrack
-	| GraphicTrack
-	| EffectTrack;
+	| GraphicTrack;
 
-export type OverlayTrack = VideoTrack | TextTrack | GraphicTrack | EffectTrack;
+export type OverlayTrack = VideoTrack | TextTrack | GraphicTrack;
 
 export interface SceneTracks {
 	overlay: OverlayTrack[];
@@ -120,7 +112,6 @@ export interface VideoElement extends BaseTimelineElement {
 	isSourceAudioEnabled?: boolean;
 	hidden?: boolean;
 	retime?: RetimeConfig;
-	effects?: Effect[];
 	masks?: Mask[];
 }
 
@@ -128,14 +119,12 @@ export interface ImageElement extends BaseTimelineElement {
 	type: "image";
 	mediaId: string;
 	hidden?: boolean;
-	effects?: Effect[];
 	masks?: Mask[];
 }
 
 export interface TextElement extends BaseTimelineElement {
 	type: "text";
 	hidden?: boolean;
-	effects?: Effect[];
 }
 
 export interface StickerElement extends BaseTimelineElement {
@@ -145,20 +134,13 @@ export interface StickerElement extends BaseTimelineElement {
 	intrinsicWidth?: number;
 	intrinsicHeight?: number;
 	hidden?: boolean;
-	effects?: Effect[];
 }
 
 export interface GraphicElement extends BaseTimelineElement {
 	type: "graphic";
 	definitionId: string;
 	hidden?: boolean;
-	effects?: Effect[];
 	masks?: Mask[];
-}
-
-export interface EffectElement extends BaseTimelineElement {
-	type: "effect";
-	effectType: string;
 }
 
 export type ElementUpdatePatch = { params?: Partial<ParamValues> };
@@ -169,8 +151,7 @@ export type TimelineElement =
 	| ImageElement
 	| TextElement
 	| StickerElement
-	| GraphicElement
-	| EffectElement;
+	| GraphicElement;
 
 export type ElementType = TimelineElement["type"];
 
@@ -215,15 +196,13 @@ export type CreateImageElement = Omit<ImageElement, "id">;
 export type CreateTextElement = Omit<TextElement, "id">;
 export type CreateStickerElement = Omit<StickerElement, "id">;
 export type CreateGraphicElement = Omit<GraphicElement, "id">;
-export type CreateEffectElement = Omit<EffectElement, "id">;
 export type CreateTimelineElement =
 	| CreateAudioElement
 	| CreateVideoElement
 	| CreateImageElement
 	| CreateTextElement
 	| CreateStickerElement
-	| CreateGraphicElement
-	| CreateEffectElement;
+	| CreateGraphicElement;
 
 export interface ElementDragState {
 	isDragging: boolean;
