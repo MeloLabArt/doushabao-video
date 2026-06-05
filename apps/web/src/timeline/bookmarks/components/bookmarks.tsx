@@ -437,7 +437,7 @@ function BookmarkPopoverContent({
 				aria-label={t("bookmarks.deleteAriaLabel")}
 			>
 				<HugeiconsIcon icon={Delete02Icon} className="!size-3.5" />
-				Delete
+				{t("bookmarks.delete")}
 			</Button>
 		</>
 	);

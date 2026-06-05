@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Popover, PopoverContent } from "@/components/ui/popover";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
@@ -59,6 +60,7 @@ export function GraphEditorPopover({
 	onCancelPreview?: () => void;
 }) {
 	const [isExpanded, setIsExpanded] = useState(false);
+		const { t } = useTranslation();
 	const custom = useCustomPresets();
 	const allPresets = [...BUILTIN_PRESETS, ...custom];
 	const canEdit = value !== null;
@@ -126,10 +128,10 @@ export function GraphEditorPopover({
 				<Tabs variant="underline" defaultValue="presets" className="flex flex-col gap-2">
 					<TabsList className="px-3">
 						<TabsTrigger value="presets" className="text-xs">
-							Presets
+							{t("graphEditor.presets")}
 						</TabsTrigger>
 						<TabsTrigger value="saved" className="text-xs">
-							Saved
+							{t("graphEditor.saved")}
 						</TabsTrigger>
 					</TabsList>
 					<TabsContent value="presets" className="px-3 pb-0">
@@ -178,7 +180,7 @@ export function GraphEditorPopover({
 										className="size-3.5 opacity-40"
 									/>
 								</div>
-								<span className="text-[10px] leading-tight">Save</span>
+								<span className="text-[10px] leading-tight">{t("graphEditor.save")}</span>
 							</button>
 						</div>
 					</TabsContent>

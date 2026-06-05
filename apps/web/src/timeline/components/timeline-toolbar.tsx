@@ -124,7 +124,7 @@ function ToolbarLeftSection() {
 			? getSourceAudioActionLabel({
 					element: selectedElement.element,
 				})
-			: t("timeline.extractAudio");
+			: "timeline.extractAudio";
 	const isSelectedSourceAudioSeparated =
 		selectedElement?.element.type === "video" &&
 		isSourceAudioSeparated({
@@ -171,7 +171,7 @@ function ToolbarLeftSection() {
 							icon={isSelectedSourceAudioSeparated ? Unlink02Icon : Link02Icon}
 						/>
 					}
-					tooltip={sourceAudioLabel}
+					tooltip={t(sourceAudioLabel)}
 					disabled={!canToggleSelectedSourceAudio}
 					onClick={({ event }) =>
 						handleAction({ action: "toggle-source-audio", event })
@@ -207,7 +207,7 @@ function ToolbarLeftSection() {
 					<ToolbarButton
 						icon={<HugeiconsIcon icon={Bookmark02Icon} />}
 						isActive={isCurrentlyBookmarked}
-						tooltip={isCurrentlyBookmarked ? "Remove bookmark" : "Add bookmark"}
+						tooltip={isCurrentlyBookmarked ? t("timeline.removeBookmark") : t("timeline.addBookmark")}
 						onClick={({ event }) =>
 							handleAction({ action: "toggle-bookmark", event })
 						}

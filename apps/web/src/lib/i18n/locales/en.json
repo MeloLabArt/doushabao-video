@@ -446,7 +446,20 @@
     "autoSnapping": "Auto snapping",
     "rippleEditing": "Ripple editing",
     "noScene": "No Scene",
-    "extractAudio": "Extract audio"
+    "extractAudio": "Extract audio",
+    "recoverAudio": "Recover audio",
+    "muteElement": "Mute",
+    "unmuteElement": "Unmute",
+    "showElement": "Show",
+    "hideElement": "Hide",
+    "copyElement": "Copy",
+    "deleteElements": "Delete {{count}} elements",
+    "deleteTextElement": "Delete text",
+    "deleteClipElement": "Delete clip",
+    "collapseKeyframes": "Collapse keyframes",
+    "expandKeyframes": "Expand keyframes",
+    "revealMedia": "Reveal media",
+    "replaceMedia": "Replace media"
   },
   "effectsTab": {
     "title": "Effect",
@@ -700,7 +713,11 @@
   "fontPicker": {
     "allFonts": "All fonts",
     "myFonts": "My fonts",
-    "favorites": "Favorites"
+    "favorites": "Favorites",
+    "selectFont": "Select a font",
+    "searchPlaceholder": "Search {{tab}}...",
+    "loadingFonts": "Loading fonts...",
+    "noFontsFound": "No fonts found."
   },
   "customGuide": {
     "custom": "Custom",

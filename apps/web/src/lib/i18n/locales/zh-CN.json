@@ -446,7 +446,20 @@
     "autoSnapping": "自动吸附",
     "rippleEditing": "波纹编辑",
     "noScene": "无场景",
-    "extractAudio": "提取音频"
+    "extractAudio": "提取音频",
+    "recoverAudio": "恢复音频",
+    "muteElement": "静音",
+    "unmuteElement": "取消静音",
+    "showElement": "显示",
+    "hideElement": "隐藏",
+    "copyElement": "复制",
+    "deleteElements": "删除{{count}}个元素",
+    "deleteTextElement": "删除文本",
+    "deleteClipElement": "删除片段",
+    "collapseKeyframes": "折叠关键帧",
+    "expandKeyframes": "展开关键帧",
+    "revealMedia": "显示媒体",
+    "replaceMedia": "替换媒体"
   },
   "effectsTab": {
     "title": "特效",
@@ -700,7 +713,11 @@
   "fontPicker": {
     "allFonts": "所有字体",
     "myFonts": "我的字体",
-    "favorites": "收藏"
+    "favorites": "收藏",
+    "selectFont": "选择字体",
+    "searchPlaceholder": "搜索{{tab}}...",
+    "loadingFonts": "加载字体中...",
+    "noFontsFound": "未找到字体"
   },
   "customGuide": {
     "custom": "自定义",

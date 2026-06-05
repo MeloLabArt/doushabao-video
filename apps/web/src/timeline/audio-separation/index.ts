@@ -110,10 +110,10 @@ export function getSourceAudioActionLabel({
 	element,
 }: {
 	element: VideoElement;
-}): "Extract audio" | "Recover audio" {
+}): "timeline.extractAudio" | "timeline.recoverAudio" {
 	return isSourceAudioSeparated({ element })
-		? "Recover audio"
-		: "Extract audio";
+		? "timeline.recoverAudio"
+		: "timeline.extractAudio";
 }
 
 function cloneVolumeAnimations({

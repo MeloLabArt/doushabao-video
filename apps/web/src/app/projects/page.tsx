@@ -138,7 +138,7 @@ function ProjectsHeader() {
 			<div className="flex items-center justify-between h-16 pt-2">
 				<div className="flex items-center gap-5">
 					<h1 className="text-sm sm:text-base font-medium">
-						All projects
+						{t("projects.title")}
 					</h1>
 
 					<div className="hidden md:flex items-center rounded-md border p-1 px-1.5 h-10">
@@ -229,7 +229,7 @@ function ProjectsToolbar({
 						}
 					/>
 					<span className="text-muted-foreground hidden md:block">
-						Select all
+						{t("common.selectAll")}
 					</span>
 				</Label>
 
@@ -784,19 +784,19 @@ return (
 				icon={<HugeiconsIcon icon={Edit03Icon} />}
 				onClick={onRenameClick}
 			>
-				Rename
+				{t("common.rename")}
 			</ContextMenuItem>
 			<ContextMenuItem
 				icon={<HugeiconsIcon icon={Copy01Icon} />}
 				onClick={onDuplicateClick}
 			>
-				Duplicate
+				{t("common.duplicate")}
 			</ContextMenuItem>
 			<ContextMenuItem
 				icon={<HugeiconsIcon icon={InformationCircleIcon} />}
 				onClick={onInfoClick}
 			>
-				Info
+				{t("projects.info")}
 			</ContextMenuItem>
 			<ContextMenuSeparator />
 			<ContextMenuItem
@@ -804,7 +804,7 @@ return (
 				icon={<HugeiconsIcon icon={Delete02Icon} />}
 				onClick={onDeleteClick}
 			>
-				Delete
+				{t("common.delete")}
 			</ContextMenuItem>
 		</ContextMenuContent>
 	);
@@ -915,7 +915,7 @@ const handleMenuClick = ({
 				</DropdownMenuItem>
 				<DropdownMenuItem onClick={handleInfoClick}>
 					<HugeiconsIcon icon={InformationCircleIcon} />
-					{t("common.info")}
+					{t("projects.info")}
 				</DropdownMenuItem>
 				<DropdownMenuItem variant="destructive" onClick={handleDeleteClick}>
 					<HugeiconsIcon icon={Delete02Icon} />
@@ -1016,8 +1016,7 @@ function EmptyState() {
 				</div>
 				<h3 className="text-lg font-medium">{t("projects.emptyTitle")}</h3>
 				<p className="text-muted-foreground max-w-md">
-					Start creating your first project. Import media, edit, and export your
-					videos. All privately.
+					{t("projects.emptyDesc")}
 				</p>
 			</div>
 			<Button size="lg" className="gap-2" onClick={handleCreateProject}>
