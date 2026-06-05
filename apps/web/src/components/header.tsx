@@ -54,7 +54,7 @@ export function Header() {
 				<div className="relative z-10 flex items-center gap-6">
 					<ContextMenu>
 						<ContextMenuTrigger asChild>
-							<Link href="/" className="flex items-center gap-3">
+							<Link href="/projects" className="flex items-center gap-3">
 								<Image
 									src={DEFAULT_LOGO_URL}
 									alt="OpenCut Logo"

@@ -25,14 +25,6 @@ import { formatTimecode, mediaTimeToSeconds } from "opencut-wasm";
 import { formatDate } from "@/utils/date";
 import { HugeiconsIcon } from "@hugeicons/react";
 import {
-	Breadcrumb,
-	BreadcrumbItem,
-	BreadcrumbLink,
-	BreadcrumbList,
-	BreadcrumbPage,
-	BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
-import {
 	Calendar04Icon,
 	GridViewIcon,
 	LeftToRightListDashIcon,
@@ -144,23 +136,9 @@ function ProjectsHeader() {
 		<header className="sticky top-0 z-20 px-8 bg-background flex flex-col gap-2">
 			<div className="flex items-center justify-between h-16 pt-2">
 				<div className="flex items-center gap-5">
-					<Breadcrumb>
-						<BreadcrumbList>
-							<BreadcrumbItem>
-								<BreadcrumbLink asChild>
-									<Link href="/" className="text-sm sm:text-base">
-										Home
-									</Link>
-								</BreadcrumbLink>
-							</BreadcrumbItem>
-							<BreadcrumbSeparator />
-							<BreadcrumbItem>
-								<BreadcrumbPage className="text-sm sm:text-base font-medium">
-									All projects
-								</BreadcrumbPage>
-							</BreadcrumbItem>
-						</BreadcrumbList>
-					</Breadcrumb>
+					<h1 className="text-sm sm:text-base font-medium">
+						All projects
+					</h1>
 
 					<div className="hidden md:flex items-center rounded-md border p-1 px-1.5 h-10">
 						{VIEW_MODE_OPTIONS.map(({ mode, icon, label }) => (
