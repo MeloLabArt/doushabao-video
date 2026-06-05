@@ -208,3 +208,21 @@ export function getDefaultShortcuts(): Map<
 
 	return shortcuts;
 }
+
+/** Actions in this set unconditionally require arguments and cannot be
+ * dispatched from a keyboard shortcut without additional context. */
+const ACTIONS_REQUIRING_ARGS = new Set<TAction>([
+	"remove-media-asset",
+	"remove-media-assets",
+]);
+
+/**
+ * Runtime type guard — checks whether `value` is a known action that can be
+ * bound to a keyboard shortcut (every action except those that unconditionally
+ * require arguments at dispatch time).
+ */
+export function isActionWithOptionalArgs(
+	value: string,
+): value is TActionWithOptionalArgs {
+	return value in ACTIONS && !ACTIONS_REQUIRING_ARGS.has(value as TAction);
+}

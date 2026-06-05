@@ -41,3 +41,33 @@ export type ShortcutKey = ModifierBasedShortcutKey | SingleCharacterShortcutKey;
 export type KeybindingConfig = {
 	[key in ShortcutKey]?: TActionWithOptionalArgs;
 };
+
+// Build modifier-key pattern from the union type literal values.
+// ModifierKeys can contain "+" (e.g. "ctrl+alt"), so we must treat
+// them as atomic prefixes before the final "+Key" part.
+const MODIFIER_VALUES = [
+	"ctrl",
+	"alt",
+	"shift",
+	"ctrl+shift",
+	"alt+shift",
+	"ctrl+alt",
+	"ctrl+alt+shift",
+] as const satisfies ModifierKeys[];
+
+// Match: <modifier>+<key>  (modifier is one of the atomic values above)
+function escapeRegex(s: string): string {
+	return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+const MODIFIER_PATTERN = MODIFIER_VALUES.map(escapeRegex).join("|");
+const MODIFIER_SHORTCUT_RE = new RegExp(
+	`^(${MODIFIER_PATTERN})\\+(${KEYS.map(escapeRegex).join("|")})$`,
+);
+
+export function isShortcutKey(value: string): value is ShortcutKey {
+	// Single-character / bare-key shortcuts.
+	if (isKey(value)) return true;
+	// Modifier-based shortcuts: e.g. "ctrl+s", "ctrl+alt+shift+z".
+	return MODIFIER_SHORTCUT_RE.test(value);
+}
