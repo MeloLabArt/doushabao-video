@@ -1,3 +1,5 @@
+"use client";
+
 import { type ComponentProps, forwardRef, useEffect, useRef, useState } from "react";
 import { cn } from "@/utils/ui";
 import { Input } from "./input";
@@ -67,8 +69,11 @@ function ColorPickerContent({
 	const opacityRef = useRef<HTMLButtonElement>(null);
 	const latestDragColorRef = useRef<string | null>(null);
 
-	const isEyeDropperSupported =
-		typeof window !== "undefined" && "EyeDropper" in window;
+	const [isEyeDropperSupported, setIsEyeDropperSupported] = useState(false);
+
+	useEffect(() => {
+		setIsEyeDropperSupported("EyeDropper" in window);
+	}, []);
 
 	const { rgb: rgbValue, alpha } = parseHexAlpha({ hex: value });
 	const [h, s, v] = hexToHsv({ hex: rgbValue });
