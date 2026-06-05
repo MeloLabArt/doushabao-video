@@ -1,3 +1,4 @@
+import { t } from "@/lib/i18n/t";
 import {
 	DEFAULT_SHAPE_MASK_SHORT_SIDE_RATIO,
 	MIN_MASK_DIMENSION,
@@ -31,7 +32,7 @@ export const BOX_LIKE_MASK_PARAMS: ParamDefinition<
 >[] = [
 	{
 		key: "centerX",
-		label: "X",
+		label: t("params.x"),
 		type: "number",
 		default: 0,
 		min: -100,
@@ -40,7 +41,7 @@ export const BOX_LIKE_MASK_PARAMS: ParamDefinition<
 	},
 	{
 		key: "centerY",
-		label: "Y",
+		label: t("params.y"),
 		type: "number",
 		default: 0,
 		min: -100,
@@ -49,7 +50,7 @@ export const BOX_LIKE_MASK_PARAMS: ParamDefinition<
 	},
 	{
 		key: "width",
-		label: "Width",
+		label: t("params.width"),
 		type: "number",
 		default: 0.6,
 		min: 1,
@@ -57,7 +58,7 @@ export const BOX_LIKE_MASK_PARAMS: ParamDefinition<
 	},
 	{
 		key: "height",
-		label: "Height",
+		label: t("params.height"),
 		type: "number",
 		default: 0.6,
 		min: 1,
@@ -65,7 +66,7 @@ export const BOX_LIKE_MASK_PARAMS: ParamDefinition<
 	},
 	{
 		key: "rotation",
-		label: "Rotation",
+		label: t("params.rotation"),
 		type: "number",
 		default: 0,
 		min: 0,
@@ -74,7 +75,7 @@ export const BOX_LIKE_MASK_PARAMS: ParamDefinition<
 	},
 	{
 		key: "scale",
-		label: "Scale",
+		label: t("params.scale"),
 		type: "number",
 		default: 1,
 		min: 1,
@@ -83,13 +84,13 @@ export const BOX_LIKE_MASK_PARAMS: ParamDefinition<
 	},
 	{
 		key: "strokeAlign",
-		label: "Stroke Align",
+		label: t("params.strokeAlign"),
 		type: "select",
 		default: "center",
 		options: [
-			{ value: "inside", label: "Inside" },
-			{ value: "center", label: "Center" },
-			{ value: "outside", label: "Outside" },
+			{ value: "inside", label: t("params.inside") },
+			{ value: "center", label: t("params.center") },
+			{ value: "outside", label: t("params.outside") },
 		],
 	},
 ];

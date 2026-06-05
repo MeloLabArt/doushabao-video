@@ -8,9 +8,11 @@ import {
 	getStrokeOffset,
 } from "../box-like";
 
+import { t } from "@/lib/i18n/t";
+
 export const ellipseMaskDefinition: MaskDefinition<"ellipse"> = {
 	type: "ellipse",
-	name: "Ellipse",
+	name: t("masks.ellipse"),
 	features: {
 		hasPosition: true,
 		hasRotation: true,

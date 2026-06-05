@@ -1,4 +1,5 @@
 import type { MaskDefinition } from "@/masks/types";
+import { t } from "@/lib/i18n/t";
 import {
 	BOX_LIKE_MASK_PARAMS,
 	buildBoxMaskInteraction,
@@ -85,9 +86,10 @@ function buildOverlayStarPath({
 	return `${segments.join(" ")} Z`;
 }
 
+
 export const starMaskDefinition: MaskDefinition<"star"> = {
 	type: "star",
-	name: "Star",
+	name: t("masks.star"),
 	features: {
 		hasPosition: true,
 		hasRotation: true,

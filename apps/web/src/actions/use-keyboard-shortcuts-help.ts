@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
+import { t } from "@/lib/i18n/t";
 import { useKeybindingsStore } from "@/actions/keybindings-store";
 import { ACTIONS, type TActionWithOptionalArgs } from "@/actions";
 import {
@@ -8,6 +9,10 @@ import {
 	getPlatformSpecialKey,
 } from "@/utils/platform";
 
+
+function actionToTranslationKey(action: string): string {
+	return "actions." + action.replace(/-([a-z])/g, (_, c) => c.toUpperCase());
+}
 export interface KeyboardShortcut {
 	id: string;
 	keys: string[];
@@ -57,7 +62,7 @@ export function useKeyboardShortcutsHelp() {
 			result.push({
 				id: action,
 				keys,
-				description: actionDef.description,
+				description: t(actionToTranslationKey(action)),
 				category: actionDef.category,
 				action,
 			});

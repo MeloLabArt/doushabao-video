@@ -1,3 +1,4 @@
+import { t } from "@/lib/i18n/t";
 import type { ParamDefinition } from "@/params";
 import { applyAlignedStroke } from "../stroke";
 import { STROKE_ALIGN_PARAM, type GraphicStrokeAlign } from "./shared";
@@ -14,20 +15,20 @@ interface RectangleParams {
 const RECTANGLE_PARAMS: ParamDefinition<keyof RectangleParams & string>[] = [
 	{
 		key: "fill",
-		label: "Fill",
+		label: t("params.fill"),
 		type: "color",
 		default: "#ffffff",
 	},
 	{
 		key: "stroke",
-		label: "Color",
+		label: t("params.color"),
 		type: "color",
 		default: "#000000",
 		group: "stroke",
 	},
 	{
 		key: "strokeWidth",
-		label: "Width",
+		label: t("params.width"),
 		type: "number",
 		default: 0,
 		min: 0,
@@ -39,7 +40,7 @@ const RECTANGLE_PARAMS: ParamDefinition<keyof RectangleParams & string>[] = [
 	STROKE_ALIGN_PARAM,
 	{
 		key: "cornerRadius",
-		label: "Corner radius",
+		label: t("params.cornerRadius"),
 		type: "number",
 		default: 0,
 		min: 0,
@@ -51,8 +52,8 @@ const RECTANGLE_PARAMS: ParamDefinition<keyof RectangleParams & string>[] = [
 
 export const rectangleGraphicDefinition: GraphicDefinition = {
 	id: "rectangle",
-	name: "Rectangle",
-	keywords: ["rectangle", "square", "box"],
+	name: t("graphics.rectangle"),
+	keywords: [t("graphics.rectangle"), "square", "box"],
 	params: RECTANGLE_PARAMS,
 	render({ ctx, params, width, height }) {
 		const fill = String(params.fill ?? "#ffffff");

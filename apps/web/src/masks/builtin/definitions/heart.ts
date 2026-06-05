@@ -1,4 +1,5 @@
 import type { MaskDefinition } from "@/masks/types";
+import { t } from "@/lib/i18n/t";
 import {
 	BOX_LIKE_MASK_PARAMS,
 	buildBoxMaskInteraction,
@@ -78,9 +79,10 @@ function buildHeartPath({
 	return path;
 }
 
+
 export const heartMaskDefinition: MaskDefinition<"heart"> = {
 	type: "heart",
-	name: "Heart",
+	name: t("masks.heart"),
 	features: {
 		hasPosition: true,
 		hasRotation: true,

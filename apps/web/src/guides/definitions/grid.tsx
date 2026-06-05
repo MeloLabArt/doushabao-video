@@ -4,6 +4,7 @@ import {
 	LayoutThreeRowIcon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
+import { t } from "@/lib/i18n/t";
 import { NumberField } from "@/components/ui/number-field";
 import {
 	GRID_MIN,
@@ -117,7 +118,7 @@ function GridGuideOptions() {
 
 export const gridGuide = {
 	id: "grid",
-	label: "Grid",
+	label: t("guides.grid"),
 	renderPreview: () => <GridGuidePreview />,
 	renderTriggerIcon: () => <HugeiconsIcon icon={GridTableIcon} />,
 	renderOverlay: () => <GridGuideOverlay />,

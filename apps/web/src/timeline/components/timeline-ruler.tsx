@@ -3,6 +3,7 @@ import { BASE_TIMELINE_PIXELS_PER_SECOND } from "@/timeline/scale";
 import { mediaTimeToSeconds } from "opencut-wasm";
 import { TICKS_PER_SECOND } from "@/wasm";
 import { TIMELINE_RULER_HEIGHT_PX } from "./layout";
+import { t } from "@/lib/i18n/t";
 import { DEFAULT_FPS } from "@/fps/defaults";
 import { useEditor } from "@/editor/use-editor";
 import { getRulerConfig, shouldShowLabel } from "@/timeline/ruler-utils";
@@ -101,7 +102,7 @@ export function TimelineRuler({
 		<div
 			role="slider"
 			tabIndex={0}
-			aria-label="Timeline ruler"
+			aria-label={t("timeline.rulerAriaLabel")}
 			aria-valuemin={0}
 			aria-valuemax={effectiveDurationSeconds}
 			aria-valuenow={0}

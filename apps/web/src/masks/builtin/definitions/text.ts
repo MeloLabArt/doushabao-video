@@ -1,3 +1,4 @@
+import { t } from "@/lib/i18n/t";
 import type { ParamDefinition } from "@/params";
 import type {
 	MaskDefinition,
@@ -41,7 +42,7 @@ const TEXT_MASK_ALIGNMENT = "center";
 const TEXT_MASK_PARAMS: ParamDefinition<keyof TextMaskParams & string>[] = [
 	{
 		key: "centerX",
-		label: "X",
+		label: t("params.x"),
 		type: "number",
 		default: 0,
 		min: -100,
@@ -50,7 +51,7 @@ const TEXT_MASK_PARAMS: ParamDefinition<keyof TextMaskParams & string>[] = [
 	},
 	{
 		key: "centerY",
-		label: "Y",
+		label: t("params.y"),
 		type: "number",
 		default: 0,
 		min: -100,
@@ -59,7 +60,7 @@ const TEXT_MASK_PARAMS: ParamDefinition<keyof TextMaskParams & string>[] = [
 	},
 	{
 		key: "fontSize",
-		label: "Size",
+		label: t("params.size"),
 		type: "number",
 		default: 15,
 		min: MIN_FONT_SIZE,
@@ -68,7 +69,7 @@ const TEXT_MASK_PARAMS: ParamDefinition<keyof TextMaskParams & string>[] = [
 	},
 	{
 		key: "rotation",
-		label: "Rotation",
+		label: t("params.rotation"),
 		type: "number",
 		default: 0,
 		min: 0,
@@ -77,7 +78,7 @@ const TEXT_MASK_PARAMS: ParamDefinition<keyof TextMaskParams & string>[] = [
 	},
 	{
 		key: "scale",
-		label: "Scale",
+		label: t("params.scale"),
 		type: "number",
 		default: 1,
 		min: 1,
@@ -208,7 +209,7 @@ function computeTextMaskParamUpdate({
 
 export const textMaskDefinition: MaskDefinition<"text"> = {
 	type: "text",
-	name: "Text",
+	name: t("masks.text"),
 	features: {
 		hasPosition: true,
 		hasRotation: true,

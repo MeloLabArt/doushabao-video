@@ -353,7 +353,7 @@ export class ProjectManager {
 			console.error("Failed to rename project:", error);
 			toast.error(t("projectManager.failedRename"), {
 				description:
-					error instanceof Error ? error.message : "Please try again",
+					error instanceof Error ? error.message : t("projectManager.pleaseTryAgain"),
 			});
 		}
 	}

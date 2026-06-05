@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { t } from "@/lib/i18n/t";
 import type { GuideDefinition } from "@/guides/types";
 import { TikTokLayout } from "./tiktok-layout";
 
@@ -45,21 +46,21 @@ function platformGuide({
 }
 
 export const tiktokGuide: GuideDefinition = {
-	...platformGuide({ id: "tiktok", label: "TikTok", domain: "tiktok.com" }),
+	...platformGuide({ id: "tiktok", label: t("guides.tiktok"), domain: "tiktok.com" }),
 	renderOverlay: () => <TikTokLayout />,
 };
 export const igReelsGuide = platformGuide({
 	id: "ig-reels",
-	label: "Reels",
+	label: t("guides.reels"),
 	domain: "instagram.com",
 });
 export const ytShortsGuide = platformGuide({
 	id: "yt-shorts",
-	label: "Shorts",
+	label: t("guides.shorts"),
 	domain: "youtube.com",
 });
 export const spotlightGuide = platformGuide({
 	id: "spotlight",
-	label: "Spotlight",
+	label: t("guides.spotlight"),
 	domain: "snapchat.com",
 });

@@ -1,4 +1,5 @@
 import { MAX_FEATHER } from "@/masks/feather";
+import { t } from "@/lib/i18n/t";
 import type { ParamDefinition } from "@/params";
 import type {
 	BaseMaskParams,
@@ -32,7 +33,7 @@ export const BASE_MASK_PARAM_DEFINITIONS: ParamDefinition<
 >[] = [
 	{
 		key: "feather",
-		label: "Feather",
+		label: t("params.feather"),
 		type: "number",
 		default: 0,
 		min: 0,
@@ -42,7 +43,7 @@ export const BASE_MASK_PARAM_DEFINITIONS: ParamDefinition<
 	},
 	{
 		key: "strokeWidth",
-		label: "Stroke width",
+		label: t("params.strokeWidth"),
 		type: "number",
 		default: 0,
 		min: 0,
@@ -51,7 +52,7 @@ export const BASE_MASK_PARAM_DEFINITIONS: ParamDefinition<
 	},
 	{
 		key: "strokeColor",
-		label: "Stroke color",
+		label: t("params.strokeColor"),
 		type: "color",
 		default: "#ffffff",
 	},

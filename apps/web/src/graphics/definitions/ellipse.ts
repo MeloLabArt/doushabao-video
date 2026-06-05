@@ -1,3 +1,4 @@
+import { t } from "@/lib/i18n/t";
 import type { ParamDefinition } from "@/params";
 import { applyAlignedStroke } from "../stroke";
 import { STROKE_ALIGN_PARAM, type GraphicStrokeAlign } from "./shared";
@@ -13,20 +14,20 @@ interface EllipseParams {
 const ELLIPSE_PARAMS: ParamDefinition<keyof EllipseParams & string>[] = [
 	{
 		key: "fill",
-		label: "Fill",
+		label: t("params.fill"),
 		type: "color",
 		default: "#ffffff",
 	},
 	{
 		key: "stroke",
-		label: "Color",
+		label: t("params.color"),
 		type: "color",
 		default: "#000000",
 		group: "stroke",
 	},
 	{
 		key: "strokeWidth",
-		label: "Width",
+		label: t("params.width"),
 		type: "number",
 		default: 0,
 		min: 0,
@@ -40,8 +41,8 @@ const ELLIPSE_PARAMS: ParamDefinition<keyof EllipseParams & string>[] = [
 
 export const ellipseGraphicDefinition: GraphicDefinition = {
 	id: "ellipse",
-	name: "Ellipse",
-	keywords: ["ellipse", "circle", "oval"],
+	name: t("graphics.ellipse"),
+	keywords: [t("graphics.ellipse"), "circle", "oval"],
 	params: ELLIPSE_PARAMS,
 	render({ ctx, params, width, height }) {
 		const fill = String(params.fill ?? "#ffffff");

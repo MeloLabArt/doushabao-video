@@ -13,6 +13,7 @@ import { loadFullFont } from "@/fonts/google-fonts";
 import { SYSTEM_FONTS } from "@/fonts/system-fonts";
 import type { FontAtlas, FontAtlasEntry } from "@/fonts/types";
 import { useFontAtlas } from "@/fonts/use-font-atlas";
+import { t } from "@/lib/i18n/t";
 import { cn } from "@/utils/ui";
 import { ChevronDown, Search } from "lucide-react";
 import { HugeiconsIcon } from "@hugeicons/react";
@@ -83,7 +84,7 @@ export function FontPicker({
 	}, [open]);
 
 	const activeTabLabel =
-		FONT_TABS.find((t) => t.key === activeTab)?.label.toLowerCase() ?? "";
+		FONT_TABS.find((tab) => tab.key === activeTab)?.label.toLowerCase() ?? "";
 
 	return (
 		<Popover open={open} onOpenChange={setOpen}>

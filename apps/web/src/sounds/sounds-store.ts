@@ -244,7 +244,7 @@ export const useSoundsStore = create<SoundsStore>((set, get) => ({
 			toast.error(
 				error instanceof Error
 					? error.message
-					: "Failed to add sound to timeline",
+					: t("sounds.failedAddToTimeline"),
 				{ id: `sound-${sound.id}` },
 			);
 			return false;
