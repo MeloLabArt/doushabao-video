@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { serverT } from "@/lib/i18n/server-t";
 import Image from "next/image";
 import Link from "next/link";
 import { BasePage } from "@/app/base-page";
@@ -21,6 +22,8 @@ export const metadata: Metadata = {
 };
 
 export default function SponsorsPage() {
+  const title = serverT("staticPages.sponsorsTitle");
+  const desc = serverT("staticPages.sponsorsDesc");
 	return (
 		<BasePage>
 			<div className="flex flex-col gap-8 text-center">

@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslation } from "react-i18next";
 import { Separator } from "@/components/ui/separator";
 import { type Tab, useAssetsPanelStore } from "@/components/editor/panels/assets/assets-panel-store";
 import { TabBar } from "./tabbar";
@@ -14,6 +15,7 @@ import { EffectsView } from "@/effects/components/assets-view";
 export function AssetsPanel() {
 	const { activeTab } = useAssetsPanelStore();
 
+	const { t } = useTranslation();
 	const viewMap: Record<Tab, React.ReactNode> = {
 		media: <MediaView />,
 		sounds: <SoundsView />,
@@ -22,13 +24,13 @@ export function AssetsPanel() {
 		effects: <EffectsView />,
 		transitions: (
 			<div className="text-muted-foreground p-4">
-				Transitions view coming soon...
+				{t("assetsPanel.transitionsComing")}
 			</div>
 		),
 		captions: <Captions />,
 		adjustment: (
 			<div className="text-muted-foreground p-4">
-				Adjustment view coming soon...
+				{t("assetsPanel.adjustmentComing")}
 			</div>
 		),
 		settings: <SettingsView />,

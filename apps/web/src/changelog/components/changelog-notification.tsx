@@ -5,12 +5,14 @@ import Link from "next/link";
 import { Cancel01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "react-i18next";
 import { getSortedReleases } from "../utils";
 import type { Release } from "../utils";
 
 const STORAGE_KEY = "last-seen-version";
 
 export function ChangelogNotification() {
+	const { t } = useTranslation();
 	const [release, setRelease] = useState<Release | null>(null);
 
 	useEffect(() => {
@@ -63,7 +65,7 @@ export function ChangelogNotification() {
 					size="icon"
 					className="-mr-1 -mt-1 shrink-0"
 					onClick={() => setRelease(null)}
-					aria-label="Dismiss"
+					aria-label={t("editor.dismiss")}
 				>
 					<HugeiconsIcon icon={Cancel01Icon} className="size-4" />
 				</Button>

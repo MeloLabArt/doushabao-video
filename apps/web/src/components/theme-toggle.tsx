@@ -5,6 +5,7 @@ import { useTheme } from "next-themes";
 import { cn } from "@/utils/ui";
 import { Sun03Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
+import { useTranslation } from "react-i18next";
 
 interface ThemeToggleProps {
 	className?: string;
@@ -17,6 +18,7 @@ export function ThemeToggle({
 	iconClassName,
 	onToggle,
 }: ThemeToggleProps) {
+	const { t } = useTranslation();
 	const { theme, setTheme } = useTheme();
 
 	return (

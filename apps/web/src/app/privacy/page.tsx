@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { serverT } from "@/lib/i18n/server-t";
 import { BasePage } from "@/app/base-page";
 import {
 	Accordion,
@@ -22,6 +23,8 @@ export const metadata: Metadata = {
 };
 
 export default function PrivacyPage() {
+  const title = serverT("staticPages.privacyTitle");
+  const desc = serverT("staticPages.privacyDesc");
 	return (
 		<BasePage
 			title="Privacy policy"

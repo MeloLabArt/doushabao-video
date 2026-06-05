@@ -4,9 +4,11 @@ import { Button } from "../ui/button";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { Handlebars } from "./handlebars";
+import { useTranslation } from "react-i18next";
 import Link from "next/link";
 
 export function Hero() {
+	const { t } = useTranslation();
 	return (
 		<div className="flex min-h-[calc(100svh-4.5rem)] flex-col items-center justify-between px-4 text-center">
 			<Image

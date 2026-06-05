@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { createContext, useContext, useEffect, useState } from "react";
 import { cn } from "@/utils/ui";
 import { HugeiconsIcon } from "@hugeicons/react";
@@ -39,7 +40,7 @@ export function Section({
 	showTopBorder = false,
 	showBottomBorder = true,
 }: SectionProps) {
-	const cached = sectionKey ? sectionExpandedCache.get(sectionKey) : undefined;
+		const cached = sectionKey ? sectionExpandedCache.get(sectionKey) : undefined;
 	const [isOpen, setIsOpen] = useState(cached ?? defaultOpen);
 
 	useEffect(() => {
@@ -97,6 +98,7 @@ export function SectionHeader({
 	onClick,
 	className,
 }: SectionHeaderProps) {
+	const { t } = useTranslation();
 	const ctx = useSectionContext();
 	const isCollapsible = ctx?.collapsible ?? false;
 	const isOpen = ctx?.isOpen ?? true;
@@ -123,7 +125,7 @@ export function SectionHeader({
 					<Button
 						variant="ghost"
 						size="icon"
-						aria-label={isOpen ? "Collapse section" : "Expand section"}
+						aria-label={isOpen ? t("propertiesPanel.collapseSection") : t("propertiesPanel.expandSection")}
 						onClick={handleClick}
 					>
 						{chevronIcon}

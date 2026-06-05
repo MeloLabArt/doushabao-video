@@ -1,11 +1,13 @@
 import { DraggableItem } from "@/components/editor/panels/assets/draggable-item";
 import { PanelView } from "@/components/editor/panels/assets/views/base-panel";
 import { useEditor } from "@/editor/use-editor";
+import { useTranslation } from "react-i18next";
 import { DEFAULTS } from "@/timeline/defaults";
 import { buildTextElement } from "@/timeline/element-utils";
 import type { MediaTime } from "@/wasm";
 
 export function TextView() {
+	const { t } = useTranslation();
 	const editor = useEditor();
 
 	const handleAddToTimeline = ({ currentTime }: { currentTime: MediaTime }) => {
@@ -24,9 +26,9 @@ export function TextView() {
 	};
 
 	return (
-		<PanelView title="Text">
+		<PanelView title={t("textPanel.text")}>
 			<DraggableItem
-				name="Default text"
+				name={t("textPanel.defaultText")}
 				preview={
 					<div className="bg-accent flex size-full items-center justify-center rounded">
 						<span className="text-xs select-none">Default text</span>
@@ -36,7 +38,7 @@ export function TextView() {
 					id: "temp-text-id",
 					type: DEFAULTS.text.element.type,
 					name: DEFAULTS.text.element.name,
-					content: "Default text",
+					content: t("textPanel.defaultText"),
 				}}
 				aspectRatio={1}
 				onAddToTimeline={handleAddToTimeline}

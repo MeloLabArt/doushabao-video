@@ -23,9 +23,12 @@ import {
 } from "@/components/ui/dialog";
 import { canDeleteScene, getMainScene } from "@/timeline/scenes";
 import { toast } from "sonner";
+import { useTranslation } from "react-i18next";
 import { useEditor } from "@/editor/use-editor";
 
 export function ScenesView({ children }: { children: React.ReactNode }) {
+	const { t } = useTranslation();
+
 	const editor = useEditor();
 	const scenes = editor.scenes.getScenes();
 	const currentScene = editor.scenes.getActiveScene();
@@ -71,7 +74,7 @@ export function ScenesView({ children }: { children: React.ReactNode }) {
 
 			const { canDelete, reason } = canDeleteScene({ scene });
 			if (!canDelete) {
-				toast.error(reason || "Failed to delete scene");
+				toast.error(reason || t("scenesView.failedDelete"));
 				continue;
 			}
 
@@ -96,12 +99,12 @@ export function ScenesView({ children }: { children: React.ReactNode }) {
 			<SheetContent>
 				<SheetHeader>
 					<SheetTitle>
-						{isSelectMode ? `Select scenes (${selectedScenes.size})` : "Scenes"}
+						{isSelectMode ? `Select scenes (${selectedScenes.size})` : t("scenesView.scenes")}
 					</SheetTitle>
 					<SheetDescription>
 						{isSelectMode
-							? "Select scenes to delete"
-							: "Switch between scenes in your project"}
+							? t("scenesView.selectScenesDesc")
+							: t("scenesView.switchScenes")}
 					</SheetDescription>
 				</SheetHeader>
 				<div className="flex flex-col gap-4 py-4">
@@ -113,7 +116,7 @@ export function ScenesView({ children }: { children: React.ReactNode }) {
 							onClick={handleSelectMode}
 						>
 							<ListCheck />
-							{isSelectMode ? "Cancel" : "Select"}
+							{isSelectMode ? t("common.cancel") : t("scenesView.select")}
 						</Button>
 						{isSelectMode && (
 							<DeleteDialog

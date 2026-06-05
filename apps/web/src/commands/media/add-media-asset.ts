@@ -1,6 +1,7 @@
 import { Command, type CommandResult } from "@/commands/base-command";
 import { EditorCore } from "@/core";
 import { toast } from "sonner";
+import { t } from "@/lib/i18n/t";
 import type { MediaAsset } from "@/media/types";
 import { generateUUID } from "@/utils/id";
 import { storageService } from "@/services/storage/service";
@@ -88,7 +89,7 @@ export class AddMediaAssetCommand extends Command {
 				this.restoreProjectFpsAfterFailedSave({ editor });
 
 				if (storageService.isQuotaExceededError({ error })) {
-					toast.error("Not enough browser storage", {
+					toast.error(t("mediaUpload.noStorageGeneral"), {
 						description: error instanceof Error ? error.message : undefined,
 					});
 				}

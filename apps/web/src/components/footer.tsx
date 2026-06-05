@@ -4,7 +4,7 @@ import { FaGithub } from "react-icons/fa6";
 import Image from "next/image";
 import { DEFAULT_LOGO_URL } from "@/site/brand";
 import { SOCIAL_LINKS } from "@/site/social";
-import { capitalizeFirstLetter } from "@/utils/string";
+import { useTranslation } from "react-i18next";
 
 type Category = "resources" | "company";
 
@@ -15,23 +15,28 @@ interface FooterLink {
 
 type CategoryLinks = Record<Category, FooterLink[]>;
 
-const links: CategoryLinks = {
-	resources: [
-		{ label: "Roadmap", href: "/roadmap" },
-		{ label: "Changelog", href: "/changelog" },
-		{ label: "Blog", href: "/blog" },
-		{ label: "Privacy", href: "/privacy" },
-		{ label: "Terms of use", href: "/terms" },
-	],
-	company: [
-		{ label: "Contributors", href: "/contributors" },
-		{ label: "Sponsors", href: "/sponsors" },
-		{ label: "Brand", href: "/brand" },
-		{ label: "About", href: `${SOCIAL_LINKS.github}/blob/main/README.md` },
-	],
-};
-
 export function Footer() {
+	const { t } = useTranslation();
+
+	const links: CategoryLinks = {
+		resources: [
+			{ label: t("nav.roadmap"), href: "/roadmap" },
+			{ label: t("nav.changelog"), href: "/changelog" },
+			{ label: t("nav.blog"), href: "/blog" },
+			{ label: t("nav.privacy"), href: "/privacy" },
+			{ label: t("nav.termsOfUse"), href: "/terms" },
+		],
+		company: [
+			{ label: t("nav.contributors"), href: "/contributors" },
+			{ label: t("nav.sponsors"), href: "/sponsors" },
+			{ label: t("nav.brand"), href: "/brand" },
+			{
+				label: t("nav.about"),
+				href: `${SOCIAL_LINKS.github}/blob/main/README.md`,
+			},
+		],
+	};
+
 	return (
 		<footer className="bg-background border-t">
 			<div className="mx-auto max-w-5xl px-8 py-10">
@@ -41,15 +46,17 @@ export function Footer() {
 						<div className="mb-4 flex items-center justify-start gap-2">
 							<Image
 								src={DEFAULT_LOGO_URL}
-								alt="Doushabao-Video"
+								alt={t("footer.brandName")}
 								width={24}
 								height={24}
-								
+
 							/>
-							<span className="text-lg font-bold">Doushabao-Video</span>
+							<span className="text-lg font-bold">
+								{t("footer.brandName")}
+							</span>
 						</div>
 						<p className="text-muted-foreground mb-5 text-sm md:text-left">
-							The privacy-first video editor that feels simple to use.
+							{t("footer.tagline")}
 						</p>
 						<div className="flex justify-start gap-3">
 							<Link
@@ -83,7 +90,7 @@ export function Footer() {
 						{(Object.keys(links) as Category[]).map((category) => (
 							<div key={category} className="flex flex-col gap-2">
 								<h3 className="text-foreground font-semibold">
-									{capitalizeFirstLetter({ string: category })}
+									{t(`nav.${category}`)}
 								</h3>
 								<ul className="space-y-2 text-sm">
 									{links[category].map((link) => (
@@ -114,7 +121,9 @@ export function Footer() {
 				<div className="flex flex-col items-start justify-between gap-4 pt-2 md:flex-row">
 					<div className="text-muted-foreground flex items-center gap-4 text-sm">
 						<span>
-							© {new Date().getFullYear()} Doushabao-Video, All Rights Reserved
+							{t("footer.copyright", {
+								year: new Date().getFullYear(),
+							})}
 						</span>
 					</div>
 				</div>

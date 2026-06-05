@@ -12,6 +12,8 @@ import {
 import { FPS_PRESETS } from "@/fps/presets";
 import { floatToFrameRate, frameRateToFloat } from "@/fps/utils";
 import { useEditor } from "@/editor/use-editor";
+import { useTranslation } from "react-i18next";
+import { t } from "@/lib/i18n/t";
 import {
 	Section,
 	SectionContent,
@@ -39,10 +41,10 @@ function isSettingsView(value: string): value is SettingsView {
 }
 
 const PRESET_LABELS: Record<string, string> = {
-	"1:1": "1:1",
-	"16:9": "16:9",
-	"9:16": "9:16",
-	"4:3": "4:3",
+	[t("settingsPanel.ratio1_1")]: t("settingsPanel.ratio1_1"),
+	[t("settingsPanel.ratio16_9")]: t("settingsPanel.ratio16_9"),
+	[t("settingsPanel.ratio9_16")]: t("settingsPanel.ratio9_16"),
+	[t("settingsPanel.ratio4_3")]: t("settingsPanel.ratio4_3"),
 };
 
 function areCanvasSizesEqual({
@@ -101,6 +103,7 @@ export function SettingsView() {
 	const editor = useEditor();
 	const activeProject = useEditor((e) => e.project.getActive());
 	const { canvasPresets } = useEditorStore();
+		const { t } = useTranslation();
 	const currentCanvasSize = activeProject.settings.canvasSize;
 	const canvasSizeMode = activeProject.settings.canvasSizeMode ?? "preset";
 	const lastCustomCanvasSize =
@@ -249,7 +252,7 @@ export function SettingsView() {
 							}}
 							>
 								<SelectTrigger className="bg-transparent border-none p-1 h-auto">
-									<SelectValue placeholder="Select a frame rate" />
+									<SelectValue placeholder={t("settingsPanel.selectFrameRate")} />
 								</SelectTrigger>
 								<SelectContent>
 									{FPS_PRESETS.map((preset) => (
@@ -286,7 +289,7 @@ export function SettingsView() {
 							<div className="pb-2">
 								<AspectRatioItem
 									key="custom"
-									label="Custom"
+									label={t("settingsPanel.ratioCustom")}
 									previewIcon={<OcSquarePlusIcon />}
 									isSelected={isCustomSelected}
 									onClick={selectCustomCanvasSize}
@@ -295,7 +298,7 @@ export function SettingsView() {
 											<NumberField
 												value={widthDraft.displayValue}
 												className="w-full"
-												aria-label="Canvas width"
+												aria-label={t("settingsPanel.canvasWidth")}
 												onFocus={widthDraft.onFocus}
 												onChange={widthDraft.onChange}
 												onBlur={widthDraft.onBlur}
@@ -303,7 +306,7 @@ export function SettingsView() {
 											<NumberField
 												value={heightDraft.displayValue}
 												className="w-full"
-												aria-label="Canvas height"
+												aria-label={t("settingsPanel.canvasHeight")}
 												onFocus={heightDraft.onFocus}
 												onChange={heightDraft.onChange}
 												onBlur={heightDraft.onBlur}

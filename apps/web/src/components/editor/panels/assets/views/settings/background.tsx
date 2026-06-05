@@ -1,6 +1,7 @@
 "use client";
 
 import { memo, useCallback, useEffect, useMemo, useRef } from "react";
+import { t } from "@/lib/i18n/t";
 import {
 	Section,
 	SectionContent,
@@ -179,11 +180,13 @@ function CustomColorPreview({
 	);
 }
 
-const COLOR_SECTIONS = [
-	{ id: "colors", title: "Colors", backgrounds: colors, useBackgroundColor: true, showCustomPicker: true },
-	{ id: "pattern-craft", title: "Pattern craft", backgrounds: patternCraftGradients, showCustomPicker: false },
-	{ id: "syntax-ui", title: "Syntax UI", backgrounds: syntaxUIGradients, showCustomPicker: false },
-] as const;
+function getColorSections() {
+	return [
+		{ id: "colors", title: t("settingsPanel.colors"), backgrounds: colors, useBackgroundColor: true, showCustomPicker: true },
+		{ id: "pattern-craft", title: t("settingsPanel.patternCraft"), backgrounds: patternCraftGradients, showCustomPicker: false },
+		{ id: "syntax-ui", title: t("settingsPanel.syntaxUi"), backgrounds: syntaxUIGradients, showCustomPicker: false },
+	] as const;
+}
 
 export function BackgroundContent() {
 	const editor = useEditor();
@@ -269,7 +272,7 @@ export function BackgroundContent() {
 					<div className="flex flex-wrap gap-2">{blurPreviews}</div>
 				</SectionContent>
 			</Section>
-			{COLOR_SECTIONS.map((section) => (
+			{getColorSections().map((section) => (
 				<Section
 					key={section.id}
 					collapsible

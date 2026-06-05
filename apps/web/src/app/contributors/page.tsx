@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { serverT } from "@/lib/i18n/server-t";
 import Link from "next/link";
 import { GitHubContributeSection } from "@/components/gitHub-contribute-section";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";

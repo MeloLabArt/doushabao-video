@@ -10,6 +10,7 @@ import type {
 import type { ExportOptions, ExportResult, ExportState } from "@/export";
 import { storageService } from "@/services/storage/service";
 import { toast } from "sonner";
+import { t } from "@/lib/i18n/t";
 import { generateUUID } from "@/utils/id";
 import { UpdateProjectSettingsCommand } from "@/commands/project";
 import { DEFAULT_BACKGROUND_COLOR } from "@/background/color";
@@ -120,7 +121,7 @@ export class ProjectManager {
 
 			return newProject.metadata.id;
 		} catch (error) {
-			toast.error("Failed to save new project");
+			toast.error(t("projectManager.failedSave"));
 			throw error;
 		}
 	}
@@ -325,7 +326,7 @@ export class ProjectManager {
 		try {
 			const result = await storageService.loadProject({ id });
 			if (!result) {
-				toast.error("Project not found", {
+				toast.error(t("projectManager.notFound"), {
 					description: "Please try again",
 				});
 				return;
@@ -350,7 +351,7 @@ export class ProjectManager {
 			this.updateMetadata(updatedProject);
 		} catch (error) {
 			console.error("Failed to rename project:", error);
-			toast.error("Failed to rename project", {
+			toast.error(t("projectManager.failedRename"), {
 				description:
 					error instanceof Error ? error.message : "Please try again",
 			});

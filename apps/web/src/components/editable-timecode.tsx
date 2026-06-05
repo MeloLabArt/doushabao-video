@@ -32,7 +32,7 @@ export function EditableTimecode({
 	className,
 	disabled = false,
 }: EditableTimecodeProps) {
-	const [isEditing, setIsEditing] = useState(false);
+		const [isEditing, setIsEditing] = useState(false);
 	const [inputValue, setInputValue] = useState("");
 	const [hasError, setHasError] = useState(false);
 	const inputRef = useRef<HTMLInputElement>(null);

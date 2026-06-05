@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
+import { useTranslation } from "react-i18next";
 import { useEditor } from "@/editor/use-editor";
 import { storageService } from "@/services/storage/service";
 
@@ -17,6 +18,7 @@ const StorageContext = createContext<StorageContextType | null>(null);
 export function useStorage() {
 	const context = useContext(StorageContext);
 	if (!context) {
+		const { t } = useTranslation();
 		throw new Error("useStorage must be used within StorageProvider");
 	}
 	return context;
@@ -27,6 +29,7 @@ interface StorageProviderProps {
 }
 
 export function StorageProvider({ children }: StorageProviderProps) {
+	const { t } = useTranslation();
 	const [status, setStatus] = useState<StorageContextType>({
 		isInitialized: false,
 		isLoading: true,
@@ -49,7 +52,7 @@ export function StorageProvider({ children }: StorageProviderProps) {
 
 				if (!hasSupport) {
 					toast.warning(
-						"Storage not fully supported. Some features may not work.",
+						t("storage.notSupported"),
 					);
 				}
 

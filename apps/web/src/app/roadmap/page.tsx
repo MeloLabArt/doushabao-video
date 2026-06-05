@@ -4,8 +4,11 @@ import { GitHubContributeSection } from "@/components/gitHub-contribute-section"
 import { Badge } from "@/components/ui/badge";
 import { ReactMarkdownWrapper } from "@/components/ui/react-markdown-wrapper";
 import { cn } from "@/utils/ui";
+import { serverT } from "@/lib/i18n/server-t";
 
 const LAST_UPDATED = "February 25, 2026";
+const title = serverT("staticPages.roadmapTitle");
+const desc = serverT("staticPages.roadmapDesc", { date: LAST_UPDATED });
 
 type StatusType = "complete" | "pending" | "default" | "info";
 
@@ -26,7 +29,7 @@ const roadmapItems: RoadmapItem[] = [
 		description:
 			"This is where it all started. Repository created, initial project structure, and the vision for a free, open-source video editor. [Check out the first tweet](https://x.com/mazeincoding/status/1936706642512388188) to see where it started.",
 		status: {
-			text: "Completed",
+			text: serverT("staticPages.completed"),
 			type: "complete",
 		},
 	},
@@ -35,7 +38,7 @@ const roadmapItems: RoadmapItem[] = [
 		description:
 			"Build the foundation - main layout, header, sidebar, timeline container, and basic component structure. Not all functionality yet, but the UI framework that everything else builds on.",
 		status: {
-			text: "Completed",
+			text: serverT("staticPages.completed"),
 			type: "complete",
 		},
 	},
@@ -44,7 +47,7 @@ const roadmapItems: RoadmapItem[] = [
 		description:
 			"Everything that makes a video editor **useful**. Timeline interactivity, storage, effects, transitions, etc.",
 		status: {
-			text: "In progress",
+			text: serverT("staticPages.inProgress"),
 			type: "pending",
 		},
 	},
@@ -53,7 +56,7 @@ const roadmapItems: RoadmapItem[] = [
 		description:
 			"Native Doushabao-Video apps for Mac, Windows, Linux, and iOS/Android.",
 		status: {
-			text: "Not started",
+			text: serverT("staticPages.notStarted"),
 			type: "default",
 		},
 	},
@@ -90,7 +93,7 @@ export default function RoadmapPage() {
 	return (
 		<BasePage
 			title="Roadmap"
-			description={`What's coming next for Doushabao-Video (last updated: ${LAST_UPDATED})`}
+			description={`{desc.split(" (last")[0]} (last updated: ${LAST_UPDATED})`}
 		>
 			<div className="mx-auto flex max-w-4xl flex-col gap-16">
 				<div className="flex flex-col gap-6">
@@ -99,7 +102,7 @@ export default function RoadmapPage() {
 					))}
 				</div>
 				<GitHubContributeSection
-					title="Want to help?"
+					title={serverT("staticPages.wantToHelp")}
 					description="Doushabao-Video is open source and built by the community. Every contribution,
           no matter how small, helps us build the best free video editor
           possible."

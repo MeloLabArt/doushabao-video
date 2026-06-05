@@ -8,6 +8,8 @@ import { baseMetaData } from "./metadata";
 import { BotIdClient } from "botid/client";
 import { webEnv } from "@/env/web";
 import { Inter } from "next/font/google";
+import { I18nProvider } from "@/lib/i18n/i18n-provider";
+import { LangSetter } from "@/lib/i18n/lang-setter";
 
 const siteFont = Inter({ subsets: ["latin"] });
 
@@ -49,20 +51,22 @@ export default function RootLayout({
 					disableTransitionOnChange={true}
 				>
 					<TooltipProvider>
-						<Toaster />
-						<Script
-							src="https://cdn.databuddy.cc/databuddy.js"
-							strategy="afterInteractive"
-							async
-							data-client-id="UP-Wcoy5arxFeK7oyjMMZ"
-							data-disabled={webEnv.NODE_ENV === "development"}
-							data-track-attributes={false}
-							data-track-errors={true}
-							data-track-outgoing-links={false}
-							data-track-web-vitals={false}
-							data-track-sessions={false}
-						/>
-						{children}
+						<I18nProvider>
+							<Toaster />
+							<Script
+								src="https://cdn.databuddy.cc/databuddy.js"
+								strategy="afterInteractive"
+								async
+								data-client-id="UP-Wcoy5arxFeK7oyjMMZ"
+								data-disabled={webEnv.NODE_ENV === "development"}
+								data-track-attributes={false}
+								data-track-errors={true}
+								data-track-outgoing-links={false}
+								data-track-web-vitals={false}
+								data-track-sessions={false}
+							/>
+							{children}
+						</I18nProvider>
 					</TooltipProvider>
 				</ThemeProvider>
 			</body>

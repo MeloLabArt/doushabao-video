@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { useEditor } from "@/editor/use-editor";
 import { useElementSelection } from "@/timeline/hooks/element/use-element-selection";
 import {
@@ -59,6 +60,7 @@ export function TimelineToolbar({
 	minZoom: number;
 	setZoomLevel: ({ zoom }: { zoom: number }) => void;
 }) {
+	const { t } = useTranslation();
 	const handleZoom = ({ direction }: { direction: "in" | "out" }) => {
 		const newZoomLevel =
 			direction === "in"
@@ -86,6 +88,7 @@ export function TimelineToolbar({
 }
 
 function ToolbarLeftSection() {
+	const { t } = useTranslation();
 	const editor = useEditor();
 	const mediaAssets = useEditor((currentEditor) =>
 		currentEditor.media.getAssets(),
@@ -121,7 +124,7 @@ function ToolbarLeftSection() {
 			? getSourceAudioActionLabel({
 					element: selectedElement.element,
 				})
-			: "Extract audio";
+			: t("timeline.extractAudio");
 	const isSelectedSourceAudioSeparated =
 		selectedElement?.element.type === "video" &&
 		isSourceAudioSeparated({
@@ -144,19 +147,19 @@ function ToolbarLeftSection() {
 			<TooltipProvider delayDuration={500}>
 				<ToolbarButton
 					icon={<HugeiconsIcon icon={ScissorIcon} />}
-					tooltip="Split element"
+					tooltip={t("timeline.splitElement")}
 					onClick={({ event }) => handleAction({ action: "split", event })}
 				/>
 
 				<ToolbarButton
 					icon={<HugeiconsIcon icon={AlignLeftIcon} />}
-					tooltip="Split left"
+					tooltip={t("timeline.splitLeft")}
 					onClick={({ event }) => handleAction({ action: "split-left", event })}
 				/>
 
 				<ToolbarButton
 					icon={<HugeiconsIcon icon={AlignRightIcon} />}
-					tooltip="Split right"
+					tooltip={t("timeline.splitRight")}
 					onClick={({ event }) =>
 						handleAction({ action: "split-right", event })
 					}
@@ -177,7 +180,7 @@ function ToolbarLeftSection() {
 
 				<ToolbarButton
 					icon={<HugeiconsIcon icon={Copy01Icon} />}
-					tooltip="Duplicate element"
+					tooltip={t("timeline.duplicateElement")}
 					onClick={({ event }) =>
 						handleAction({ action: "duplicate-selected", event })
 					}
@@ -185,14 +188,14 @@ function ToolbarLeftSection() {
 
 				<ToolbarButton
 					icon={<HugeiconsIcon icon={SnowIcon} />}
-					tooltip="Freeze frame (coming soon)"
+					tooltip={t("timeline.freezeFrame")}
 					disabled={true}
 					onClick={({ event: _event }) => {}}
 				/>
 
 				<ToolbarButton
 					icon={<HugeiconsIcon icon={Delete02Icon} />}
-					tooltip="Delete element"
+					tooltip={t("timeline.deleteElement")}
 					onClick={({ event }) =>
 						handleAction({ action: "delete-selected", event })
 					}
@@ -246,13 +249,14 @@ function ToolbarLeftSection() {
 }
 
 function SceneSelector() {
+	const { t } = useTranslation();
 	const editor = useEditor();
 	const currentScene = editor.scenes.getActiveScene();
 
 	return (
 		<div>
 			<SplitButton className="border-foreground/10 border">
-				<SplitButtonLeft>{currentScene?.name || "No Scene"}</SplitButtonLeft>
+				<SplitButtonLeft>{currentScene?.name || t("timeline.noScene")}</SplitButtonLeft>
 				<SplitButtonSeparator />
 				<ScenesView>
 					<SplitButtonRight onClick={() => {}}>
@@ -275,7 +279,8 @@ function ToolbarRightSection({
 	onZoomChange: (zoom: number) => void;
 	onZoom: (options: { direction: "in" | "out" }) => void;
 }) {
-	const snappingEnabled = useTimelineStore((s) => s.snappingEnabled);
+	const { t } = useTranslation();
+		const snappingEnabled = useTimelineStore((s) => s.snappingEnabled);
 	const rippleEditingEnabled = useTimelineStore((s) => s.rippleEditingEnabled);
 	const toggleSnapping = useTimelineStore((s) => s.toggleSnapping);
 	const toggleRippleEditing = useTimelineStore((s) => s.toggleRippleEditing);
@@ -286,14 +291,14 @@ function ToolbarRightSection({
 				<ToolbarButton
 					icon={<HugeiconsIcon icon={MagnetIcon} />}
 					isActive={snappingEnabled}
-					tooltip="Auto snapping"
+					tooltip={t("timeline.autoSnapping")}
 					onClick={() => toggleSnapping()}
 				/>
 
 				<ToolbarButton
 					icon={<OcRippleIcon size={24} className="scale-110" />}
 					isActive={rippleEditingEnabled}
-					tooltip="Ripple editing"
+					tooltip={t("timeline.rippleEditing")}
 					onClick={() => toggleRippleEditing()}
 				/>
 			</TooltipProvider>

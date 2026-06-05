@@ -7,6 +7,7 @@ import { Check, Copy, Download } from "lucide-react";
 import { useState } from "react";
 import { BasePage } from "@/app/base-page";
 import { Button } from "@/components/ui/button";
+import { serverT } from "@/lib/i18n/server-t";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/utils/ui";
@@ -106,6 +107,8 @@ const ASSET_SECTIONS: AssetSection[] = [
 ];
 
 export default function BrandPage() {
+  const title = serverT("staticPages.brandTitle");
+  const desc = serverT("staticPages.brandDesc");
 	return (
 		<BasePage
 			maxWidth="6xl"

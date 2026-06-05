@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import {
 	Dialog,
@@ -36,6 +37,7 @@ import {
 import { HugeiconsIcon } from "@hugeicons/react";
 
 export function SoundsView() {
+	const { t } = useTranslation();
 	return (
 		<div className="flex h-full flex-col">
 			<Tabs defaultValue="sound-effects" className="flex h-full flex-col">
@@ -64,6 +66,7 @@ export function SoundsView() {
 }
 
 function SoundEffectsView() {
+	const { t } = useTranslation();
 	const {
 		topSoundEffects,
 		isLoading,
@@ -227,7 +230,7 @@ function SoundEffectsView() {
 		<div className="mt-1 flex h-full flex-col gap-5">
 			<div className="flex items-center gap-3">
 				<Input
-					placeholder="Search sound effects"
+					placeholder={t("soundsPanel.searchPlaceholder")}
 					className="w-full"
 					containerClassName="w-full"
 					value={searchQuery}
@@ -288,7 +291,7 @@ function SoundEffectsView() {
 						))}
 						{!isLoading && !isSearching && displayedSounds.length === 0 && (
 							<div className="text-muted-foreground text-sm">
-								{searchQuery ? "No sounds found" : "No sounds available"}
+								{searchQuery ? t("soundsPanel.noSounds") : t("soundsPanel.noSoundsAvailable")}
 							</div>
 						)}
 						{isLoadingMore && (
@@ -485,6 +488,7 @@ interface AudioItemProps {
 }
 
 function AudioItem({ sound, isPlaying, onPlay }: AudioItemProps) {
+	const { t } = useTranslation();
 	const { addSoundToTimeline, isSoundSaved, toggleSavedSound } =
 		useSoundsStore();
 	const isSaved = isSoundSaved({ soundId: sound.id });
@@ -537,7 +541,7 @@ function AudioItem({ sound, isPlaying, onPlay }: AudioItemProps) {
 					size="icon"
 					className="text-muted-foreground hover:text-foreground w-auto !opacity-100"
 					onClick={handleAddToTimeline}
-					title="Add to timeline"
+					title={t("soundsPanel.addToTimeline")}
 				>
 					<HugeiconsIcon icon={PlusSignIcon} />
 				</Button>
@@ -550,7 +554,7 @@ function AudioItem({ sound, isPlaying, onPlay }: AudioItemProps) {
 							: "text-muted-foreground"
 					}`}
 					onClick={handleSaveClick}
-					title={isSaved ? "Remove from saved" : "Save sound"}
+					title={isSaved ? t("soundsPanel.removeFromSaved") : t("soundsPanel.saveSound")}
 				>
 					<HugeiconsIcon
 						icon={FavouriteIcon}

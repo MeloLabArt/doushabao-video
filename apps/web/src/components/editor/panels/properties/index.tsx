@@ -9,6 +9,7 @@ import {
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { useEditor } from "@/editor/use-editor";
+import { useTranslation } from "react-i18next";
 import { useElementSelection } from "@/timeline/hooks/element/use-element-selection";
 import { usePropertiesStore } from "./stores/properties-store";
 import { getPropertiesConfig } from "./registry";
@@ -16,6 +17,7 @@ import { cn } from "@/utils/ui";
 import { EmptyView } from "./empty-view";
 
 export function PropertiesPanel() {
+	const { t } = useTranslation();
 	const editor = useEditor();
 	useEditor((e) => e.scenes.getActiveSceneOrNull());
 	useEditor((e) => e.media.getAssets());
@@ -34,7 +36,7 @@ export function PropertiesPanel() {
 		return (
 			<div className="panel bg-background flex h-full flex-col items-center justify-center overflow-hidden rounded-sm border">
 				<p className="text-muted-foreground text-sm">
-					{selectedElements.length} elements selected.0
+					{t("propertiesPanel.elementsSelected", { count: selectedElements.length })}
 				</p>
 			</div>
 		);

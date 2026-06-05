@@ -13,6 +13,8 @@ import type {
 	TimelineElement,
 } from "@/timeline";
 import type { MediaAsset } from "@/media/types";
+import { t } from "@/lib/i18n/t";
+import type {} from "react-i18next";
 import { HugeiconsIcon } from "@hugeicons/react";
 import {
 	TextFontIcon,
@@ -82,7 +84,7 @@ function buildTransformTab({
 }): PropertiesTabDef {
 	return {
 		id: "transform",
-		label: "Transform",
+		label: t("propertiesPanel.transform"),
 		icon: <HugeiconsIcon icon={ArrowExpandIcon} size={16} />,
 		content: ({ trackId }) => (
 			<ElementParamsTab
@@ -102,7 +104,7 @@ function buildBlendingTab({
 }): PropertiesTabDef {
 	return {
 		id: "blending",
-		label: "Blending",
+		label: t("propertiesPanel.blending"),
 		icon: <HugeiconsIcon icon={RainDropIcon} size={16} />,
 		content: ({ trackId }) => (
 			<ElementParamsTab
@@ -122,7 +124,7 @@ function buildAudioTab({
 }): PropertiesTabDef {
 	return {
 		id: "audio",
-		label: "Audio",
+		label: t("propertiesPanel.audio"),
 		icon: <HugeiconsIcon icon={MusicNote03Icon} size={16} />,
 		content: ({ trackId }) => (
 			<ElementParamsTab
@@ -142,7 +144,7 @@ function buildSpeedTab({
 }): PropertiesTabDef {
 	return {
 		id: "speed",
-		label: "Speed",
+		label: t("propertiesPanel.speed"),
 		icon: <HugeiconsIcon icon={DashboardSpeed02Icon} size={16} />,
 		content: ({ trackId }) => <SpeedTab element={element} trackId={trackId} />,
 	};
@@ -155,7 +157,7 @@ function buildMasksTab({
 }): PropertiesTabDef {
 	return {
 		id: "masks",
-		label: "Masks",
+		label: t("propertiesPanel.masks"),
 		icon: <OcShapesIcon size={16} />,
 		content: ({ trackId }) => <MasksTab element={element} trackId={trackId} />,
 	};
@@ -168,7 +170,7 @@ function buildClipEffectsTab({
 }): PropertiesTabDef {
 	return {
 		id: "effects",
-		label: "Effects",
+		label: t("propertiesPanel.effects"),
 		icon: <HugeiconsIcon icon={MagicWand05Icon} size={16} />,
 		content: ({ trackId }) => (
 			<ClipEffectsTab element={element} trackId={trackId} />
@@ -179,7 +181,7 @@ function buildClipEffectsTab({
 function buildTextTab({ element }: { element: TextElement }): PropertiesTabDef {
 	return {
 		id: "text",
-		label: "Text",
+		label: t("propertiesPanel.text"),
 		icon: <HugeiconsIcon icon={TextFontIcon} size={16} />,
 		content: ({ trackId }) => (
 			<ElementParamsTab
@@ -199,7 +201,7 @@ function buildGraphicTab({
 }): PropertiesTabDef {
 	return {
 		id: "graphic",
-		label: "Graphic",
+		label: t("propertiesPanel.graphic"),
 		icon: <OcShapesIcon size={16} />,
 		content: ({ trackId }) => <GraphicTab element={element} trackId={trackId} />,
 	};
@@ -212,7 +214,7 @@ function buildStandaloneEffectTab({
 }): PropertiesTabDef {
 	return {
 		id: "effects",
-		label: "Effects",
+		label: t("propertiesPanel.effects"),
 		icon: <HugeiconsIcon icon={MagicWand05Icon} size={16} />,
 		content: ({ trackId }) => (
 			<StandaloneEffectTab element={element} trackId={trackId} />

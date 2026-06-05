@@ -12,6 +12,7 @@ import {
 	VolumeHighIcon,
 	VolumeOffIcon,
 } from "@hugeicons/core-free-icons";
+import { useTranslation } from "react-i18next";
 import { HugeiconsIcon, type IconSvgElement } from "@hugeicons/react";
 import { OcShapesIcon, OcVideoIcon } from "@/components/icons";
 import {
@@ -751,6 +752,7 @@ function TimelineTrackRows({
 	isDragOver: boolean;
 	dropTarget: DropTarget | null;
 }) {
+	const { t } = useTranslation();
 	const timeline = useEditor((e) => e.timeline);
 	const scene = useEditor((e) => e.scenes.getActiveSceneOrNull());
 	const tracks = useMemo<TimelineTrack[]>(
@@ -843,7 +845,7 @@ function TimelineTrackRows({
 								invokeAction("paste-copied");
 							}}
 						>
-							Paste elements
+							{t("timeline.pasteElements")}
 						</ContextMenuItem>
 						<ContextMenuItem
 							icon={<HugeiconsIcon icon={VolumeHighIcon} />}
@@ -853,8 +855,8 @@ function TimelineTrackRows({
 							}}
 						>
 							{canTrackHaveAudio(track) && track.muted
-								? "Unmute track"
-								: "Mute track"}
+								? t("timeline.unmuteTrack")
+								: t("timeline.muteTrack")}
 						</ContextMenuItem>
 						<ContextMenuItem
 							icon={<HugeiconsIcon icon={ViewIcon} />}
@@ -864,8 +866,8 @@ function TimelineTrackRows({
 							}}
 						>
 							{canTrackBeHidden(track) && track.hidden
-								? "Show track"
-								: "Hide track"}
+								? t("timeline.showTrack")
+								: t("timeline.hideTrack")}
 						</ContextMenuItem>
 						{track.id !== mainTrackId && (
 							<ContextMenuItem
@@ -876,7 +878,7 @@ function TimelineTrackRows({
 								}}
 								variant="destructive"
 							>
-								Delete track
+								{t("timeline.deleteTrack")}
 							</ContextMenuItem>
 						)}
 					</ContextMenuContent>

@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { PanelView } from "@/components/editor/panels/assets/views/base-panel";
 import { MediaDragOverlay } from "@/components/editor/panels/assets/drag-overlay";
 import { DraggableItem } from "@/components/editor/panels/assets/draggable-item";
@@ -60,6 +61,7 @@ import {
 import { HugeiconsIcon, type IconSvgElement } from "@hugeicons/react";
 
 export function MediaView() {
+	const { t } = useTranslation();
 	const editor = useEditor();
 	const mediaFiles = useEditor((e) => e.media.getAssets());
 	const activeProject = useEditor((e) => e.project.getActive());
@@ -80,7 +82,7 @@ export function MediaView() {
 	const processFiles = async ({ files }: { files: File[] }) => {
 		if (!files || files.length === 0) return;
 		if (!activeProject) {
-			toast.error("No active project");
+			toast.error(t("assetsPanel.noActiveProject"));
 			return;
 		}
 
@@ -192,7 +194,7 @@ export function MediaView() {
 			<input {...fileInputProps} />
 
 			<PanelView
-				title="Assets"
+				title={t("assetsPanel.assets")}
 				actions={
 					<MediaActions
 						mediaViewMode={mediaViewMode}
@@ -217,7 +219,7 @@ export function MediaView() {
 					/>
 				) : (
 					<SelectableSurface
-						ariaLabel="Assets"
+						ariaLabel={t("assetsPanel.assets")}
 						orderedIds={orderedMediaIds}
 						revealId={highlightMediaId}
 						onRevealComplete={clearHighlight}
@@ -418,6 +420,7 @@ function MediaTypePlaceholder({
 	duration?: number;
 	variant: "muted" | "bordered";
 }) {
+	const { t } = useTranslation();
 	const iconClassName = cn("size-6", variant === "bordered" && "mb-1");
 
 	return (
@@ -441,6 +444,7 @@ function MediaPreview({
 	item: MediaAsset;
 	variant?: "grid" | "compact";
 }) {
+	const { t } = useTranslation();
 	const shouldShowDurationBadge = variant === "grid";
 
 	if (item.type === "image") {
@@ -482,7 +486,7 @@ function MediaPreview({
 		return (
 			<MediaTypePlaceholder
 				icon={Video01Icon}
-				label="Video"
+				label={t("assetsPanel.video")}
 				duration={item.duration}
 				variant="muted"
 			/>
@@ -493,7 +497,7 @@ function MediaPreview({
 		return (
 			<MediaTypePlaceholder
 				icon={MusicNote03Icon}
-				label="Audio"
+				label={t("assetsPanel.audio")}
 				duration={item.duration}
 				variant="bordered"
 			/>
@@ -501,7 +505,7 @@ function MediaPreview({
 	}
 
 	return (
-		<MediaTypePlaceholder icon={Image02Icon} label="Unknown" variant="muted" />
+		<MediaTypePlaceholder icon={Image02Icon} label={t("assetsPanel.unknown")} variant="muted" />
 	);
 }
 
@@ -522,6 +526,7 @@ function MediaActions({
 	onSort: ({ key }: { key: MediaSortKey }) => void;
 	onImport: () => void;
 }) {
+	const { t } = useTranslation();
 	return (
 		<div className="flex gap-1.5">
 			<TooltipProvider>
@@ -546,8 +551,8 @@ function MediaActions({
 					<TooltipContent>
 						<p>
 							{mediaViewMode === "grid"
-								? "Switch to list view"
-								: "Switch to grid view"}
+								? t("assetsPanel.switchToList")
+								: t("assetsPanel.switchToGrid")}
 						</p>
 					</TooltipContent>
 				</Tooltip>
@@ -567,28 +572,28 @@ function MediaActions({
 						</TooltipTrigger>
 						<DropdownMenuContent align="end">
 							<SortMenuItem
-								label="Name"
+								label={t("assetsPanel.sortName")}
 								sortKey="name"
 								currentSortBy={sortBy}
 								currentSortOrder={sortOrder}
 								onSort={onSort}
 							/>
 							<SortMenuItem
-								label="Type"
+								label={t("assetsPanel.sortType")}
 								sortKey="type"
 								currentSortBy={sortBy}
 								currentSortOrder={sortOrder}
 								onSort={onSort}
 							/>
 							<SortMenuItem
-								label="Duration"
+								label={t("assetsPanel.sortDuration")}
 								sortKey="duration"
 								currentSortBy={sortBy}
 								currentSortOrder={sortOrder}
 								onSort={onSort}
 							/>
 							<SortMenuItem
-								label="File size"
+								label={t("assetsPanel.sortFileSize")}
 								sortKey="size"
 								currentSortBy={sortBy}
 								currentSortOrder={sortOrder}

@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import type { KeyboardEvent, MouseEvent } from "react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import { useTranslation } from "react-i18next";
 import type { EditorCore } from "@/core";
 import { MigrationDialog } from "@/project/components/migration-dialog";
 import { StoragePersistenceDialog } from "@/services/storage/components/storage-persistence-dialog";
@@ -59,6 +60,7 @@ import { ProjectInfoDialog } from "@/project/components/project-info-dialog";
 import { RenameProjectDialog } from "@/project/components/rename-project-dialog";
 import { cn } from "@/utils/ui";
 import { ChangelogNotification } from "@/changelog/components/changelog-notification";
+import { LanguageSwitcher } from "@/lib/i18n/language-switcher";
 const formatProjectDuration = ({
 	duration,
 }: {
@@ -162,6 +164,7 @@ function ProjectsHeader() {
 
 				<div className="flex items-center gap-3 md:gap-4">
 					<SearchBar className="hidden md:block" />
+					<LanguageSwitcher />
 					<NewProjectButton />
 				</div>
 			</div>
@@ -170,14 +173,20 @@ function ProjectsHeader() {
 	);
 }
 
-const SORT_LABELS: Record<TProjectSortKey, string> = {
-	createdAt: "Created",
-	updatedAt: "Modified",
-	name: "Name",
-	duration: "Duration",
-};
+// SORT_LABELS moved inside ProjectsToolbar
 
-function ProjectsToolbar({ projectIds }: { projectIds: string[] }) {
+function ProjectsToolbar({
+		projectIds,
+	}: {
+		projectIds: string[];
+	}) {
+		const { t } = useTranslation();
+		const SORT_LABELS: Record<TProjectSortKey, string> = {
+			createdAt: t("projects.sortCreated"),
+			updatedAt: t("projects.sortModified"),
+			name: t("projects.sortName"),
+			duration: t("projects.sortDuration"),
+		};
 	const {
 		selectedProjectIds,
 		sortKey,
@@ -247,7 +256,7 @@ function ProjectsToolbar({ projectIds }: { projectIds: string[] }) {
 							});
 						}
 					}}
-					aria-label={`Sort ${sortOrder === "asc" ? "ascending" : "descending"}`}
+					aria-label={`${sortOrder === "asc" ? t("common.sortAscending") : t("common.sortDescending")}`}
 				>
 					<HugeiconsIcon
 						icon={ArrowDown02Icon}
@@ -287,7 +296,12 @@ function SearchBar({
 	className?: string;
 	collapsed?: boolean;
 }) {
-	const { searchQuery, setSearchQuery } = useProjectsStore();
+	
+
+		const { t } = useTranslation();
+	
+
+		const { searchQuery, setSearchQuery } = useProjectsStore();
 
 	return (
 		<>
@@ -309,7 +323,7 @@ function SearchBar({
 						aria-hidden="true"
 					/>
 					<Input
-						placeholder="Search..."
+						placeholder={t("projects.searchPlaceholder")}
 						value={searchQuery}
 						onChange={(event) => setSearchQuery({ query: event.target.value })}
 						size="lg"
@@ -369,6 +383,7 @@ async function renameProject({
 }
 
 function ProjectActions() {
+	const { t } = useTranslation();
 	const editor = useEditor();
 	const { selectedProjectIds, clearSelectedProjects } = useProjectsStore();
 	const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
@@ -447,7 +462,12 @@ function ProjectActions() {
 }
 
 function SortDropdown({ children }: { children: React.ReactNode }) {
-	const { sortKey, setSortKey } = useProjectsStore();
+	
+
+		const { t } = useTranslation();
+	
+
+		const { sortKey, setSortKey } = useProjectsStore();
 
 	return (
 		<DropdownMenu>
@@ -483,12 +503,14 @@ function SortDropdown({ children }: { children: React.ReactNode }) {
 }
 
 function NewProjectButton() {
+			const { t } = useTranslation();
+
 	const editor = useEditor();
 	const router = useRouter();
 
 	const handleCreateProject = async () => {
 		const projectId = await editor.project.createNewProject({
-			name: "New project",
+			name: t("projects.defaultProjectName"),
 		});
 		router.push(`/editor/${projectId}`);
 	};
@@ -499,8 +521,8 @@ function NewProjectButton() {
 			className="flex px-5 md:px-6"
 			onClick={handleCreateProject}
 		>
-			<span className="text-sm font-medium hidden md:block">New project</span>
-			<span className="text-sm font-medium block md:hidden">New</span>
+			<span className="text-sm font-medium hidden md:block">{t("projects.newProject")}</span>
+			<span className="text-sm font-medium block md:hidden">{t("projects.new")}</span>
 		</Button>
 	);
 }
@@ -512,7 +534,12 @@ function ProjectItem({
 	project: TProjectMetadata;
 	allProjectIds: string[];
 }) {
-	const {
+	
+
+		const { t } = useTranslation();
+	
+
+		const {
 		selectedProjectIds,
 		viewMode,
 		setProjectSelected,
@@ -562,7 +589,7 @@ function ProjectItem({
 					{project.thumbnail ? (
 						<Image
 							src={project.thumbnail}
-							alt="Project thumbnail"
+							alt={t("projects.thumbnailAlt")}
 							fill
 							className="object-cover"
 						/>
@@ -586,7 +613,7 @@ function ProjectItem({
 				</h3>
 				<div className="text-muted-foreground flex items-center gap-1.5 text-sm">
 					<HugeiconsIcon icon={Calendar04Icon} className="size-4" />
-					<span>Created {formatDate({ date: project.createdAt })}</span>
+					<span>{t("projects.createdDate", { date: formatDate({ date: project.createdAt }) })}</span>
 				</div>
 			</CardContent>
 		</Card>
@@ -598,7 +625,7 @@ function ProjectItem({
 				{project.thumbnail ? (
 					<Image
 						src={project.thumbnail}
-						alt="Project thumbnail"
+						alt={t("projects.thumbnailAlt")}
 						fill
 						className="object-cover"
 					/>
@@ -749,7 +776,10 @@ function ProjectContextMenuContent({
 	onDeleteClick: () => void;
 	onInfoClick: () => void;
 }) {
-	return (
+	
+
+const { t } = useTranslation();
+return (
 		<ContextMenuContent>
 			<ContextMenuItem
 				icon={<HugeiconsIcon icon={Edit03Icon} />}
@@ -798,7 +828,10 @@ function ProjectMenu({
 	onDeleteClick: () => void;
 	onInfoClick: () => void;
 }) {
-	const handleMenuClick = ({
+	
+
+const { t } = useTranslation();
+const handleMenuClick = ({
 		event,
 	}: {
 		event: MouseEvent<HTMLButtonElement>;
@@ -852,7 +885,7 @@ function ProjectMenu({
 							: "!bg-transparent !shadow-none"
 					}
 					size="icon"
-					aria-label="Project menu"
+					aria-label={t("projects.projectMenu")}
 					onClick={(event) =>
 						handleMenuClick({
 							event: event as unknown as MouseEvent<HTMLButtonElement>,
@@ -926,6 +959,8 @@ function ProjectsSkeleton() {
 }
 
 function EmptyState() {
+			const { t } = useTranslation();
+
 	const { searchQuery, setSearchQuery } = useProjectsStore();
 	const router = useRouter();
 	const editor = useEditor();
@@ -934,13 +969,13 @@ function EmptyState() {
 	const handleCreateProject = async () => {
 		try {
 			const projectId = await editor.project.createNewProject({
-				name: "New project",
+				name: t("projects.defaultProjectName"),
 			});
 			router.push(`/editor/${projectId}`);
 		} catch (error) {
-			toast.error("Failed to create project", {
+			toast.error(t("projects.failedCreate"), {
 				description:
-					error instanceof Error ? error.message : "Please try again",
+					error instanceof Error ? error.message : t("projects.failedCreateDesc"),
 			});
 		}
 	};
@@ -954,9 +989,9 @@ function EmptyState() {
 						className="text-muted-foreground size-16 bg-accent/35 border rounded-md p-4"
 					/>
 					<div className="flex flex-col items-center gap-3">
-						<h3 className="text-lg font-medium">No results found</h3>
+						<h3 className="text-lg font-medium">{t("projects.noResultsTitle")}</h3>
 						<p className="text-muted-foreground max-w-md">
-							Your search for "{searchQuery}" did not return any results.
+							{t("projects.noResultsDesc", { query: searchQuery })}
 						</p>
 					</div>
 				</div>
@@ -965,7 +1000,7 @@ function EmptyState() {
 					variant="outline"
 					size="lg"
 				>
-					Clear search
+					{t("projects.clearSearch")}
 				</Button>
 			</div>
 		);
@@ -980,7 +1015,7 @@ function EmptyState() {
 						className="text-muted-foreground size-8"
 					/>
 				</div>
-				<h3 className="text-lg font-medium">No projects yet</h3>
+				<h3 className="text-lg font-medium">{t("projects.emptyTitle")}</h3>
 				<p className="text-muted-foreground max-w-md">
 					Start creating your first project. Import media, edit, and export your
 					videos. All privately.
@@ -988,7 +1023,7 @@ function EmptyState() {
 			</div>
 			<Button size="lg" className="gap-2" onClick={handleCreateProject}>
 				<HugeiconsIcon icon={PlusSignIcon} />
-				Create your first project
+				{t("projects.createFirstProject")}
 			</Button>
 		</div>
 	);

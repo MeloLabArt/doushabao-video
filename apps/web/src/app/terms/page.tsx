@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { serverT } from "@/lib/i18n/server-t";
 import { BasePage } from "@/app/base-page";
 import {
 	Accordion,
@@ -22,6 +23,8 @@ export const metadata: Metadata = {
 };
 
 export default function TermsPage() {
+  const title = serverT("staticPages.termsTitle");
+  const desc = serverT("staticPages.termsDesc");
 	return (
 		<BasePage
 			title="Terms of service"

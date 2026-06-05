@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { serverT } from "@/lib/i18n/server-t";
 import Link from "next/link";
 import { BasePage } from "@/app/base-page";
 import { Separator } from "@/components/ui/separator";
@@ -19,6 +20,8 @@ export const metadata: Metadata = {
 
 export default async function BlogPage() {
 	const data = await getPosts().catch(() => null);
+  const title = serverT("staticPages.blogTitle");
+  const desc = serverT("staticPages.blogDesc");
 	if (!data || !data.posts) return <div>No posts yet</div>;
 
 	return (

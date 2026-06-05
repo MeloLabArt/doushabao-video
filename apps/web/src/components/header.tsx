@@ -7,6 +7,8 @@ import { Button } from "./ui/button";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { ThemeToggle } from "./theme-toggle";
+import { useTranslation } from "react-i18next";
+import { LanguageSwitcher } from "@/lib/i18n/language-switcher";
 import {
 	Copy01Icon,
 	Download01Icon,
@@ -26,24 +28,25 @@ import {
 } from "./ui/context-menu";
 
 export function Header() {
+	const { t } = useTranslation();
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const closeMenu = () => setIsMenuOpen(false);
 
 	const links = [
 		{
-			label: "Roadmap",
+			label: t("nav.roadmap"),
 			href: "/roadmap",
 		},
 		{
-			label: "Contributors",
+			label: t("nav.contributors"),
 			href: "/contributors",
 		},
 		{
-			label: "Sponsors",
+			label: t("nav.sponsors"),
 			href: "/sponsors",
 		},
 		{
-			label: "Blog",
+			label: t("nav.blog"),
 			href: "/blog",
 		},
 	];
@@ -89,7 +92,7 @@ export function Header() {
 							<Link href="/brand">
 								<ContextMenuItem>
 									<HugeiconsIcon icon={LinkSquare02Icon} />
-									Brand assets
+									{t("nav.brandAssets")}
 								</ContextMenuItem>
 							</Link>
 						</ContextMenuContent>
@@ -130,7 +133,8 @@ export function Header() {
 								<ArrowRight className="size-4" />
 							</Button>
 						</Link>
-						<ThemeToggle />
+						<LanguageSwitcher />
+							<ThemeToggle />
 					</div>
 				</div>
 				<div
@@ -143,7 +147,7 @@ export function Header() {
 					<div className="relative h-full">
 						<button
 							type="button"
-							aria-label="Close menu"
+							aria-label={t("nav.closeMenu")}
 							className="absolute inset-0"
 							onClick={closeMenu}
 							onKeyDown={(event) => {

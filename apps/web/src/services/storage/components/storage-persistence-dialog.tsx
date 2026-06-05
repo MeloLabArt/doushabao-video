@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "react-i18next";
 import {
 	Dialog,
 	DialogBody,
@@ -12,6 +13,7 @@ import {
 import { useStoragePersistence } from "@/services/storage/use-storage-persistence";
 
 export function StoragePersistenceDialog() {
+  const { t } = useTranslation();
 	const { showDialog, onConfirm, onDismiss } = useStoragePersistence();
 
 	return (
@@ -33,7 +35,7 @@ export function StoragePersistenceDialog() {
 					<Button variant="outline" onClick={onDismiss}>
 						Not now
 					</Button>
-					<Button onClick={onConfirm}>Allow</Button>
+					<Button onClick={onConfirm}>{t("common.allow")}</Button>
 				</DialogFooter>
 			</DialogContent>
 		</Dialog>

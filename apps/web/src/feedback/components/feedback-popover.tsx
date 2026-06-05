@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import { useTranslation } from "react-i18next";
+import { t as safeT } from "@/lib/i18n/t";
 import { ClockIcon } from "lucide-react";
 import {
 	Popover,
@@ -47,6 +49,7 @@ function writeHistory({ entries }: { entries: FeedbackEntry[] }): void {
 }
 
 function useFeedback() {
+	const { t } = useTranslation();
 	const [entries, setEntries] = useState<FeedbackEntry[]>(readHistory);
 	const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -77,10 +80,10 @@ function useFeedback() {
 			setEntries(next);
 			writeHistory({ entries: next });
 			onSuccess();
-			toast.success("Feedback sent");
+			toast.success(t("feedback.sent"));
 		} catch (error) {
 			toast.error(
-				error instanceof Error ? error.message : "Failed to send feedback",
+				error instanceof Error ? error.message : t("feedback.failed"),
 			);
 		} finally {
 			setIsSubmitting(false);
@@ -92,6 +95,7 @@ function useFeedback() {
 
 export function FeedbackPopover() {
 	const [open, setOpen] = useState(false);
+	const { t } = useTranslation();
 
 	return (
 		<Popover open={open} onOpenChange={setOpen}>
@@ -110,6 +114,7 @@ export function FeedbackPopover() {
 type View = "compose" | "history";
 
 function FeedbackPopoverContent({ onClose }: { onClose: () => void }) {
+	const { t } = useTranslation();
 	const { entries, isSubmitting, submit } = useFeedback();
 	const [view, setView] = useState<View>("compose");
 
@@ -166,7 +171,7 @@ function FeedbackPopoverContent({ onClose }: { onClose: () => void }) {
 							<FormItem>
 								<FormControl>
 									<Textarea
-										placeholder="Thoughts, bugs, ideas..."
+										placeholder={t("feedback.placeholder")}
 										className="min-h-[7rem] text-sm p-3 bg-background shadow-none border-none! resize-none"
 										{...field}
 									/>
@@ -203,7 +208,7 @@ function FeedbackPopoverContent({ onClose }: { onClose: () => void }) {
 								size="sm"
 								disabled={isSubmitting || !form.watch("message").trim()}
 							>
-								{isSubmitting ? <Spinner /> : "Send"}
+								{isSubmitting ? <Spinner /> : t("feedback.send")}
 							</Button>
 						</div>
 					</div>
@@ -216,7 +221,7 @@ function FeedbackPopoverContent({ onClose }: { onClose: () => void }) {
 function relativeDate(iso: string): string {
 	const diff = Date.now() - new Date(iso).getTime();
 	const mins = Math.floor(diff / 60_000);
-	if (mins < 1) return "just now";
+	if (mins < 1) return safeT("feedback.justNow");
 	if (mins < 60) return `${mins}m ago`;
 	const hrs = Math.floor(mins / 60);
 	if (hrs < 24) return `${hrs}h ago`;

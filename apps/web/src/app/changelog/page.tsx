@@ -12,6 +12,7 @@ import {
 	ReleaseDescription,
 	ReleaseChanges,
 } from "@/changelog/components/release";
+import { serverT } from "@/lib/i18n/server-t";
 
 export const metadata: Metadata = {
 	title: "Changelog - Doushabao-Video",
@@ -40,8 +41,10 @@ export const metadata: Metadata = {
 export default function ChangelogPage() {
 	const releases = getSortedReleases();
 
+  const title = serverT("changelog.title");
+  const desc = serverT("changelog.description");
 	return (
-		<BasePage title="Changelog" description="See what's new in Doushabao-Video">
+		<BasePage title={title} description="See what's new in Doushabao-Video">
 			<div className="mx-auto w-full max-w-3xl">
 				<div className="relative">
 					<div
