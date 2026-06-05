@@ -3,6 +3,7 @@
 import Image from "next/image";
 import type { CSSProperties } from "react";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import { DraggableItem } from "@/components/editor/panels/assets/draggable-item";
 import { Button } from "@/components/ui/button";
@@ -32,6 +33,7 @@ import {
 import { HugeiconsIcon } from "@hugeicons/react";
 
 export function StickersView() {
+	const { t } = useTranslation();
 	const {
 		browseContent,
 		browseStickers,
@@ -55,7 +57,7 @@ export function StickersView() {
 				<Input
 					size="sm"
 					variant="default"
-					placeholder="Search..."
+					placeholder={t("stickersPanel.search")}
 					value={searchQuery}
 					onChange={(e) => {
 						setSearchQuery({ query: e.target.value });
@@ -79,7 +81,7 @@ export function StickersView() {
 				variant="underline"
 				className="mt-2 flex min-h-0 flex-1 flex-col"
 			>
-				<TabsList aria-label="Sticker categories">
+				<TabsList aria-label={t("stickersPanel.categories")}>
 					{Object.entries(STICKER_CATEGORIES).map(([key, label]) => (
 						<TabsTrigger key={key} value={key}>
 							{label}
@@ -134,6 +136,7 @@ function StickerRow({ items }: { items: StickerData[] }) {
 }
 
 function EmptyView({ message }: { message: string }) {
+	const { t } = useTranslation();
 	return (
 		<div className="bg-background flex h-full flex-col items-center justify-center gap-3 p-4">
 			<HugeiconsIcon
@@ -141,7 +144,7 @@ function EmptyView({ message }: { message: string }) {
 				className="text-muted-foreground size-10"
 			/>
 			<div className="flex flex-col gap-2 text-center">
-				<p className="text-lg font-medium">No stickers found</p>
+				<p className="text-lg font-medium">{t("stickersPanel.noStickers")}</p>
 				<p className="text-muted-foreground text-sm text-balance">{message}</p>
 			</div>
 		</div>
@@ -172,6 +175,7 @@ function RegionBanner({ region }: { region: string }) {
 }
 
 function StickersContentView() {
+	const { t } = useTranslation();
 	const {
 		browseContent,
 		clearRecentStickers,
@@ -205,7 +209,7 @@ function StickersContentView() {
 					{isRegionSearch && <RegionBanner region={regionLabel} />}
 					<div className="flex items-center justify-between">
 						<span className="text-muted-foreground text-sm">
-							{searchResults.total} results
+							{t("stickersPanel.results", { count: searchResults.total })}
 						</span>
 					</div>
 					<StickerGrid items={searchResults.items} />
@@ -215,7 +219,7 @@ function StickersContentView() {
 
 		// "all" tab search — sections are in browseContent, fall through to section rendering below
 		if (selectedCategory !== "all" && searchQuery) {
-			return <EmptyView message={`No stickers found for "${searchQuery}"`} />;
+			return <EmptyView message={t("stickersPanel.noResultsFor", { query: searchQuery })} />;
 		}
 	}
 
@@ -233,10 +237,10 @@ function StickersContentView() {
 			<EmptyView
 				message={
 					viewMode === "search"
-						? `No stickers found for "${searchQuery}"`
+						? t("stickersPanel.noResultsFor", { query: searchQuery })
 						: selectedCategory === "all"
-							? "No stickers available yet."
-							: `No stickers available in ${categoryLabel.toLowerCase()} yet.`
+							? t("stickersPanel.noStickersAvailable")
+							: t("stickersPanel.noneInCategory", { category: categoryLabel.toLowerCase() })
 				}
 			/>
 		);
@@ -267,6 +271,7 @@ function StickerSection({
 	onClearRecent: () => void;
 	onSeeAll: (category: StickerCategory) => void;
 }) {
+	const { t } = useTranslation();
 	const hasHeader =
 		Boolean(section.title) || section.id === "recent" || section.action;
 
@@ -288,7 +293,7 @@ function StickerSection({
 								size="sm"
 								className="h-auto gap-1 p-0 text-xs text-muted-foreground"
 							>
-								Clear
+								{t("stickersPanel.clear")}
 							</Button>
 						)}
 
@@ -301,7 +306,7 @@ function StickerSection({
 									onSeeAll(section.action?.category as StickerCategory);
 								}}
 							>
-								See all
+								{t("stickersPanel.seeAll")}
 							</Button>
 						)}
 					</div>
@@ -328,6 +333,7 @@ function StickerItem({
 	shouldCapSize = false,
 	containerClassName,
 }: StickerItemProps) {
+	const { t } = useTranslation();
 	const editor = useEditor();
 	const { addToRecentStickers } = useStickersStore();
 	const [isAdding, setIsAdding] = useState(false);
@@ -380,7 +386,7 @@ function StickerItem({
 			addToRecentStickers({ stickerId: item.id });
 		} catch (error) {
 			console.error("Failed to add sticker:", error);
-			toast.error("Failed to add sticker to timeline");
+			toast.error(t("stickersPanel.failedAdd"));
 		} finally {
 			setIsAdding(false);
 		}

@@ -1,3 +1,6 @@
+"use client";
+
+import { useTranslation } from "react-i18next";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { UploadIcon } from "@hugeicons/core-free-icons";
 
@@ -14,6 +17,7 @@ export function MediaDragOverlay({
 	progress = 0,
 	onClick,
 }: MediaDragOverlayProps) {
+	const { t } = useTranslation();
 	if (!isVisible) return null;
 
 	const handleClick = ({
@@ -41,17 +45,17 @@ export function MediaDragOverlay({
 			<div className="space-y-2">
 				<p className="text-muted-foreground max-w-sm text-xs">
 					{isProcessing
-						? `Processing your files (${progress}%)`
-						: "Drag and drop videos, photos, and audio files here"}
+						? t("mediaUpload.processingFiles", { progress })
+						: t("mediaUpload.dragDropHint")}
 				</p>
 			</div>
 
 			{isProcessing && (
 				<div className="w-full max-w-xs">
-					<div className="bg-muted/50 h-2 w-full rounded-full">
+					<div className="bg-accent h-1.5 w-full overflow-hidden rounded-full">
 						<div
-							className="bg-primary h-2 rounded-full"
-							style={{ width: `${progress}%` }}
+							className="bg-foreground h-full transition-all duration-200"
+							style={{ width: `${Math.min(progress, 100)}%` }}
 						/>
 					</div>
 				</div>

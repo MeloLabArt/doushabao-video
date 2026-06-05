@@ -60,8 +60,7 @@ export function Header() {
 							<Link href="/projects" className="flex items-center gap-3">
 								<Image
 									src={DEFAULT_LOGO_URL}
-									alt="Doushabao-Video Logo"
-									
+									alt={t("landing.logoAlt")}
 									width={32}
 									height={32}
 								/>
@@ -76,7 +75,7 @@ export function Header() {
 								}}
 							>
 								<HugeiconsIcon icon={Copy01Icon} />
-								Copy SVG
+								{t("nav.copySvg")}
 							</ContextMenuItem>
 							<ContextMenuItem
 								onClick={() => {
@@ -87,7 +86,7 @@ export function Header() {
 								}}
 							>
 								<HugeiconsIcon icon={Download01Icon} />
-								Download SVG
+								{t("nav.downloadSvg")}
 							</ContextMenuItem>
 							<Link href="/brand">
 								<ContextMenuItem>
@@ -129,12 +128,12 @@ export function Header() {
 						</Link>
 						<Link href="/projects">
 							<Button className="text-sm">
-								Projects
+								{t("nav.projects")}
 								<ArrowRight className="size-4" />
 							</Button>
 						</Link>
 						<LanguageSwitcher />
-							<ThemeToggle />
+						<ThemeToggle />
 					</div>
 				</div>
 				<div

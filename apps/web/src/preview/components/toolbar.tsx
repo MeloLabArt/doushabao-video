@@ -122,7 +122,7 @@ function ZoomSelect() {
 		>
 			<SelectTrigger className="tabular-nums">{displayLabel}</SelectTrigger>
 			<SelectContent>
-				<SelectItem value="fit">Fit</SelectItem>
+				<SelectItem value="fit">{t("preview.fit")}</SelectItem>
 				<SelectSeparator />
 				{PREVIEW_ZOOM_PRESETS.map((preset) => (
 					<SelectItem key={preset} value={String(preset)}>

@@ -225,8 +225,8 @@ export function SettingsView() {
 					}}
 				>
 					<TabsList>
-						<TabsTrigger value="project-info">Project info</TabsTrigger>
-						<TabsTrigger value="background">Background</TabsTrigger>
+						<TabsTrigger value="project-info">{t("settingsPanel.projectInfoTab")}</TabsTrigger>
+						<TabsTrigger value="background">{t("settingsPanel.backgroundTab")}</TabsTrigger>
 					</TabsList>
 				</Tabs>
 			}
@@ -235,7 +235,7 @@ export function SettingsView() {
 				<div className="flex flex-col">
 					<Section showTopBorder={false}>
 						<SectionHeader>
-							<SectionTitle className="flex-1">Name</SectionTitle>
+							<SectionTitle className="flex-1">{t("settingsPanel.name")}</SectionTitle>
 							<span className="text-sm truncate">
 								{activeProject.metadata.name}
 							</span>
@@ -243,7 +243,7 @@ export function SettingsView() {
 					</Section>
 					<Section showTopBorder={false}>
 						<SectionHeader className="justify-between">
-							<SectionTitle className="flex-1">Frame rate</SectionTitle>
+							<SectionTitle className="flex-1">{t("settingsPanel.frameRate")}</SectionTitle>
 					<Select
 							value={String(Math.round(frameRateToFloat(activeProject.settings.fps)))}
 							onValueChange={(value) => {
@@ -270,7 +270,7 @@ export function SettingsView() {
 						sectionKey="settings:aspect-ratio"
 					>
 						<SectionHeader>
-							<SectionTitle className="flex-1">Aspect ratio</SectionTitle>
+							<SectionTitle className="flex-1">{t("settingsPanel.aspectRatio")}</SectionTitle>
 						</SectionHeader>
 						<SectionContent className="px-2 flex flex-col gap-1 pb-2">
 							{presetItems.map((preset) => (

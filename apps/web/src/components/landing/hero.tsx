@@ -16,23 +16,22 @@ export function Hero() {
 				src="/landing-page-dark.png"
 				height={1903.5}
 				width={1269}
-				alt="Doushabao-Video video editor landing page background"
+				alt={t("landing.heroBgAlt")}
 			/>
 			<div className="mx-auto flex w-full max-w-3xl flex-1 flex-col justify-center">
 				<div className="inline-block text-4xl font-bold tracking-tighter md:text-[4rem]">
-					<h1>The open source</h1>
-					<Handlebars>Video editor</Handlebars>
+					<h1>{t("landing.heroTitle1")}</h1>
+					<Handlebars>{t("landing.heroTitle2")}</Handlebars>
 				</div>
 
 				<p className="text-muted-foreground mx-auto mt-10 max-w-xl text-base font-light tracking-wide sm:text-xl">
-					A simple but powerful video editor that gets the job done. Works on
-					any platform.
+					{t("landing.heroDesc")}
 				</p>
 
 				<div className="mt-8 flex justify-center gap-8">
 					<Link href="/projects">
 						<Button type="submit" size="lg" className="h-11 text-base">
-							Try early beta
+							{t("landing.tryBeta")}
 							<ArrowRight className="ml-0.5" />
 						</Button>
 					</Link>

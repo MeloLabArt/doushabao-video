@@ -9,8 +9,8 @@ export function OcVercelIcon({ className }: IconProps) {
 			viewBox="0 0 76 65"
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg"
+			aria-hidden
 		>
-			<title>Vercel</title>
 			<path d="M37.5274 0L75.0548 65H0L37.5274 0Z" fill="currentColor" />
 		</svg>
 	);
@@ -28,8 +28,8 @@ export function OcMarbleIcon({
 			className={className}
 			fill="none"
 			viewBox="0 0 256 256"
+			aria-hidden
 		>
-			<title>Marble</title>
 			<path fill="#202027" d="M0 0h256v256H0z" />
 			<path
 				fill="#fff"
@@ -51,8 +51,8 @@ export function OcDataBuddyIcon({
 			className={className}
 			viewBox="0 0 8 8"
 			shapeRendering="crispEdges"
+			aria-hidden
 		>
-			<title>Data Buddy</title>
 			<path d="M0 0h8v8H0z" />
 			<path
 				fill="#fff"

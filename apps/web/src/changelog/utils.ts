@@ -1,4 +1,5 @@
 import { allChangelogs } from "content-collections";
+import { t } from "@/lib/i18n/t";
 
 export type Change = { type: string; text: string };
 export type Release = (typeof allChangelogs)[number];
@@ -10,12 +11,12 @@ type ChangeSectionConfig = {
 };
 
 const knownSectionConfigs: Record<string, ChangeSectionConfig> = {
-	new: { title: "Features", order: 0 },
-	improved: { title: "Improvements", order: 1 },
-	fixed: { title: "Fixes", order: 2 },
-	breaking: { title: "Breaking Changes", order: 3 },
+	new: { title: t("changelog.sectionFeatures"), order: 0 },
+	improved: { title: t("changelog.sectionImprovements"), order: 1 },
+	fixed: { title: t("changelog.sectionFixes"), order: 2 },
+	breaking: { title: t("changelog.sectionBreaking"), order: 3 },
 	technical: {
-		title: "Technical details",
+		title: t("changelog.sectionTechnical"),
 		order: 4,
 		collapsible: true,
 	},

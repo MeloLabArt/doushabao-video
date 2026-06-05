@@ -80,7 +80,7 @@ export function ChangelogNotification() {
 			<div className="flex justify-end">
 				<Button asChild size="sm">
 					<Link href="/changelog" onClick={() => setRelease(null)}>
-						See full changelog
+						{t("changelog.seeFull")}
 					</Link>
 				</Button>
 			</div>

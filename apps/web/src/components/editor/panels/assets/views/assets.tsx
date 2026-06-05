@@ -318,15 +318,16 @@ function MediaItemWithContextMenu({
 	}) => void;
 }) {
 	const { isSelected, selectedIds } = useSelection();
+	const { t } = useTranslation();
 	const idsToDelete = isSelected(item.id) ? selectedIds : [item.id];
 	const deleteLabel =
-		idsToDelete.length > 1 ? `Delete ${idsToDelete.length} items` : "Delete";
+		idsToDelete.length > 1 ? t("assetsPanel.deleteItems", { count: idsToDelete.length }) : t("common.delete");
 
 	return (
 		<ContextMenu>
 			<ContextMenuTrigger asChild>{children}</ContextMenuTrigger>
 			<ContextMenuContent>
-				<ContextMenuItem>Export clips</ContextMenuItem>
+				<ContextMenuItem>{t("assetsPanel.exportClips")}</ContextMenuItem>
 				<ContextMenuItem
 					variant="destructive"
 					onClick={(event: React.MouseEvent<HTMLDivElement>) =>
@@ -527,6 +528,12 @@ function MediaActions({
 	onImport: () => void;
 }) {
 	const { t } = useTranslation();
+	const sortLabelMap: Record<string, string> = {
+		name: t("assetsPanel.sortName"),
+		type: t("assetsPanel.sortType"),
+		duration: t("assetsPanel.sortDuration"),
+		size: t("assetsPanel.sortFileSize"),
+	};
 	return (
 		<div className="flex gap-1.5">
 			<TooltipProvider>
@@ -603,8 +610,7 @@ function MediaActions({
 					</DropdownMenu>
 					<TooltipContent>
 						<p>
-							Sort by {sortBy} (
-							{sortOrder === "asc" ? "ascending" : "descending"})
+							{t("assetsPanel.sortBy", { key: sortLabelMap[sortBy], order: t(sortOrder === "asc" ? "common.sortAscending" : "common.sortDescending") })}
 						</p>
 					</TooltipContent>
 				</Tooltip>
@@ -617,7 +623,7 @@ function MediaActions({
 				className="items-center justify-center gap-1.5"
 			>
 				<HugeiconsIcon icon={CloudUploadIcon} />
-				Import
+				{t("assetsPanel.import")}
 			</Button>
 		</div>
 	);

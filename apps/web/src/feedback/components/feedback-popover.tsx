@@ -101,7 +101,7 @@ export function FeedbackPopover() {
 		<Popover open={open} onOpenChange={setOpen}>
 			<PopoverTrigger asChild>
 				<Button variant="outline" className="h-8">
-					Send feedback
+					{t("feedback.sendFeedback")}
 				</Button>
 			</PopoverTrigger>
 			<PopoverContent align="end" className="w-80 p-0">
@@ -153,7 +153,7 @@ function FeedbackPopoverContent({ onClose }: { onClose: () => void }) {
 						onClick={() => setView("compose")}
 						className="text-xs text-muted-foreground/60 hover:text-muted-foreground transition-colors"
 					>
-						← Back
+						{t("feedback.historyBack")}
 					</button>
 				</div>
 			</div>
@@ -200,7 +200,7 @@ function FeedbackPopoverContent({ onClose }: { onClose: () => void }) {
 									size="sm"
 									onClick={onClose}
 								>
-									Cancel
+									{t("common.cancel")}
 								</Button>
 							)}
 							<Button
@@ -222,11 +222,11 @@ function relativeDate(iso: string): string {
 	const diff = Date.now() - new Date(iso).getTime();
 	const mins = Math.floor(diff / 60_000);
 	if (mins < 1) return safeT("feedback.justNow");
-	if (mins < 60) return `${mins}m ago`;
+	if (mins < 60) return safeT("feedback.minutesAgo", { n: mins });
 	const hrs = Math.floor(mins / 60);
-	if (hrs < 24) return `${hrs}h ago`;
+	if (hrs < 24) return safeT("feedback.hoursAgo", { n: hrs });
 	const days = Math.floor(hrs / 24);
-	if (days < 7) return `${days}d ago`;
+	if (days < 7) return safeT("feedback.daysAgo", { n: days });
 	return new Date(iso).toLocaleDateString(undefined, {
 		month: "short",
 		day: "numeric",

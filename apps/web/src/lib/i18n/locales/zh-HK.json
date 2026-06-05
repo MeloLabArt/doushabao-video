@@ -20,7 +20,10 @@
     "notNow": "稍後再說",
     "selectAll": "全選",
     "sortAscending": "升序排列",
-    "sortDescending": "降序排列"
+    "sortDescending": "降序排列",
+    "size": "大小",
+    "light": "亮色",
+    "dark": "暗色"
   },
   "nav": {
     "projects": "專案",
@@ -45,7 +48,8 @@
     "heroTitle2": "影片編輯器",
     "heroDesc": "一個簡單而強大的影片編輯器，可在任何平台上執行。",
     "tryBeta": "試用 Beta 版",
-    "logoAlt": "Doushabao-Video 標誌"
+    "logoAlt": "Doushabao-Video 標誌",
+    "heroBgAlt": "Doushabao-Video 影片編輯器登陸頁背景"
   },
   "footer": {
     "brandName": "Doushabao-Video",
@@ -177,7 +181,8 @@
     "video": "影片",
     "audio": "音訊",
     "unknown": "未知",
-    "noActiveProject": "沒有活躍的專案"
+    "noActiveProject": "沒有活躍的專案",
+    "dragTooltip": "新增到時間軸或拖到指定位置"
   },
   "settingsPanel": {
     "projectInfo": "專案資訊",
@@ -235,7 +240,9 @@
     "clearAllTitle": "清除所有已收藏的音效？",
     "clearAllDesc": "此操作將永久移除你收藏的所有 {{count}} 個音效，無法復原。",
     "clearAllConfirm": "清除所有音效",
-    "cancel": "取消"
+    "cancel": "取消",
+    "failedLoad": "載入音效失敗",
+    "loadError": "錯誤：{{message}}"
   },
   "textPanel": {
     "text": "文字",
@@ -255,7 +262,8 @@
     "graphic": "圖形",
     "clickToEdit": "點擊編輯時間",
     "collapseSection": "摺疊區域",
-    "expandSection": "展開區域"
+    "expandSection": "展開區域",
+    "toggleKeyframe": "切換 {{param}} 關鍵幀"
   },
   "scenesView": {
     "scenes": "場景",
@@ -318,7 +326,12 @@
     "older": "更早",
     "newer": "更新",
     "copyMarkdown": "複製為 Markdown",
-    "copyMarkdownButton": "複製 Markdown"
+    "copyMarkdownButton": "複製 Markdown",
+    "sectionFeatures": "新功能",
+    "sectionImprovements": "改善",
+    "sectionFixes": "修復",
+    "sectionBreaking": "重大變更",
+    "sectionTechnical": "技術細節"
   },
   "storage": {
     "title": "不要遺失專案",
@@ -339,7 +352,9 @@
     "cantProcess": "無法處理 {{name}}",
     "processFailed": "處理 {{name}} 失敗",
     "noStorageGeneral": "瀏覽器儲存空間不足",
-    "freeUpSpace": "釋放空間或匯出專案來騰出更多空間"
+    "freeUpSpace": "釋放空間或匯出專案來騰出更多空間",
+    "processingFiles": "正在處理檔案（{{progress}}%）",
+    "dragDropHint": "將影片、照片和音訊檔案拖放到此處"
   },
   "staticPages": {
     "roadmapTitle": "路線圖",
@@ -455,6 +470,8 @@
     "content": "內容",
     "font": "字型",
     "spacing": "間距",
+    "letterSpacing": "字間距",
+    "lineHeight": "行高",
     "height": "高度",
     "width": "寬度"
   },

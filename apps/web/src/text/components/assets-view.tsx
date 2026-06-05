@@ -31,7 +31,7 @@ export function TextView() {
 				name={t("textPanel.defaultText")}
 				preview={
 					<div className="bg-accent flex size-full items-center justify-center rounded">
-						<span className="text-xs select-none">Default text</span>
+						<span className="text-xs select-none">{t("textPanel.defaultText")}</span>
 					</div>
 				}
 				dragData={{

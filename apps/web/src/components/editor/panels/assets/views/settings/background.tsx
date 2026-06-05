@@ -68,7 +68,7 @@ const BlurPreview = memo(
 				)}
 				onClick={onSelect}
 				type="button"
-				aria-label={`Select ${blur.label} blur`}
+				aria-label={t("settingsPanel.selectBlur", { label: blur.label })}
 			>
 				<canvas
 					ref={canvasRef}
@@ -123,7 +123,7 @@ const BackgroundPreviews = memo(
 						}
 						onClick={() => onSelect(bg)}
 						type="button"
-						aria-label={`Select background ${bg}`}
+						aria-label={t("settingsPanel.selectBackground", { bg })}
 					/>
 				)),
 			[
@@ -159,7 +159,7 @@ function CustomColorPreview({
 						isSelected && "border-primary border-2",
 					)}
 					type="button"
-					aria-label="Pick a custom background color"
+					aria-label={t("settingsPanel.pickCustomColor")}
 				>
 					<span
 						className="absolute inset-0"
@@ -266,7 +266,7 @@ export function BackgroundContent() {
 				showTopBorder={false}
 			>
 				<SectionHeader>
-					<SectionTitle>Blur</SectionTitle>
+					<SectionTitle>{t("settingsPanel.blurSection")}</SectionTitle>
 				</SectionHeader>
 				<SectionContent>
 					<div className="flex flex-wrap gap-2">{blurPreviews}</div>

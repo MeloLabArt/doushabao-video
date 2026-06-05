@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslation } from "react-i18next";
 import { useRef } from "react";
 import { useElementPlayhead } from "@/components/editor/panels/properties/hooks/use-element-playhead";
 import {
@@ -90,6 +91,7 @@ function StrokeSection({
 	element: GraphicElement;
 	trackId: string;
 }) {
+	const { t } = useTranslation();
 	const editor = useEditor();
 	const definition = graphicsRegistry.get(element.definitionId);
 	const { localTime, isPlayheadWithinElementRange } = useElementPlayhead({
@@ -166,7 +168,7 @@ function StrokeSection({
 					</Button>
 				}
 			>
-				<SectionTitle>Stroke</SectionTitle>
+				<SectionTitle>{t("masksTab.stroke")}</SectionTitle>
 			</SectionHeader>
 			<SectionContent
 				className={cn(!isStrokeEnabled && "pointer-events-none opacity-50")}

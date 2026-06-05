@@ -13,27 +13,26 @@ import {
 import { useStoragePersistence } from "@/services/storage/use-storage-persistence";
 
 export function StoragePersistenceDialog() {
-  const { t } = useTranslation();
+	const { t } = useTranslation();
 	const { showDialog, onConfirm, onDismiss } = useStoragePersistence();
 
 	return (
 		<Dialog open={showDialog} onOpenChange={(open) => !open && onDismiss()}>
 			<DialogContent className="sm:max-w-md">
 				<DialogHeader>
-					<DialogTitle>Don't lose your projects</DialogTitle>
+					<DialogTitle>{t("storage.title")}</DialogTitle>
 				</DialogHeader>
 				<DialogBody>
 					<p className="text-base text-muted-foreground">
-						Your browser can automatically delete your projects when storage
-						runs low.
+						{t("storage.desc")}
 					</p>
 					<p className="text-base text-muted-foreground">
-						Allow Doushabao-Video to protect them?
+						{t("storage.allow")}
 					</p>
 				</DialogBody>
 				<DialogFooter>
 					<Button variant="outline" onClick={onDismiss}>
-						Not now
+						{t("common.notNow")}
 					</Button>
 					<Button onClick={onConfirm}>{t("common.allow")}</Button>
 				</DialogFooter>

@@ -99,7 +99,9 @@ export function ScenesView({ children }: { children: React.ReactNode }) {
 			<SheetContent>
 				<SheetHeader>
 					<SheetTitle>
-						{isSelectMode ? `Select scenes (${selectedScenes.size})` : t("scenesView.scenes")}
+						{isSelectMode
+							? t("scenesView.selectScenesTitle", { count: selectedScenes.size })
+							: t("scenesView.scenes")}
 					</SheetTitle>
 					<SheetDescription>
 						{isSelectMode
@@ -131,7 +133,7 @@ export function ScenesView({ children }: { children: React.ReactNode }) {
 										size="sm"
 									>
 										<Trash2 />
-										Delete ({selectedScenes.size})
+										{t("scenesView.deleteCount", { count: selectedScenes.size })}
 									</Button>
 								}
 							/>
@@ -139,7 +141,7 @@ export function ScenesView({ children }: { children: React.ReactNode }) {
 					</div>
 					{scenes.length === 0 ? (
 						<div className="text-muted-foreground text-sm">
-							No scenes available
+							{t("scenesView.noScenesAvailable")}
 						</div>
 					) : (
 						<div className="space-y-2">
@@ -186,6 +188,7 @@ function DeleteDialog({
 	disabled?: boolean;
 	trigger: React.ReactNode;
 }) {
+	const { t } = useTranslation();
 	const [open, setOpen] = useState(false);
 
 	const handleDelete = () => {
@@ -198,22 +201,21 @@ function DeleteDialog({
 			<DialogTrigger asChild>{trigger}</DialogTrigger>
 			<DialogContent>
 				<DialogHeader>
-					<DialogTitle>Delete Scenes</DialogTitle>
+					<DialogTitle>{t("scenesView.deleteTitle")}</DialogTitle>
 					<DialogDescription>
-						Are you sure you want to delete {count} scene
-						{count === 1 ? "" : "s"}? This action cannot be undone.
+						{t("scenesView.deleteConfirmPrompt", { count })}
 					</DialogDescription>
 				</DialogHeader>
 				<DialogFooter>
 					<Button variant="outline" onClick={() => setOpen(false)}>
-						Cancel
+						{t("scenesView.cancelDelete")}
 					</Button>
 					<Button
 						variant="destructive"
 						onClick={handleDelete}
 						disabled={disabled}
 					>
-						Delete
+						{t("scenesView.confirmDelete")}
 					</Button>
 				</DialogFooter>
 			</DialogContent>

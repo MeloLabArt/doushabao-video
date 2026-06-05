@@ -43,8 +43,8 @@ export function SoundsView() {
 			<Tabs defaultValue="sound-effects" className="flex h-full flex-col">
 				<div className="px-3 pt-4 pb-0">
 					<TabsList>
-						<TabsTrigger value="sound-effects">Sound effects</TabsTrigger>
-						<TabsTrigger value="saved">Saved</TabsTrigger>
+						<TabsTrigger value="sound-effects">{t("soundsPanel.soundEffects")}</TabsTrigger>
+						<TabsTrigger value="saved">{t("soundsPanel.saved")}</TabsTrigger>
 					</TabsList>
 				</div>
 				<Separator className="my-4" />
@@ -148,7 +148,7 @@ function SoundEffectsView() {
 					console.error("Failed to fetch top sounds:", error);
 					setError({
 						error:
-							error instanceof Error ? error.message : "Failed to load sounds",
+							error instanceof Error ? error.message : t("soundsPanel.failedLoad"),
 					});
 				}
 			} finally {
@@ -173,6 +173,7 @@ function SoundEffectsView() {
 		setCurrentPage,
 		setHasNextPage,
 		setTotalCount,
+		t,
 	]);
 
 	useEffect(() => {
@@ -255,12 +256,12 @@ function SoundEffectsView() {
 							checked={showCommercialOnly}
 							onCheckedChange={() => toggleCommercialFilter()}
 						>
-							Show only commercially licensed
+							{t("soundsPanel.commercialOnly")}
 						</DropdownMenuCheckboxItem>
 						<div className="text-muted-foreground px-2 py-1.5 text-xs">
 							{showCommercialOnly
-								? "Only showing sounds licensed for commercial use"
-								: "Showing all sounds regardless of license"}
+								? t("soundsPanel.commercialActive")
+								: t("soundsPanel.commercialInactive")}
 						</div>
 					</DropdownMenuContent>
 				</DropdownMenu>
@@ -275,11 +276,13 @@ function SoundEffectsView() {
 					<div className="flex flex-col gap-4">
 						{isLoading && !searchQuery && (
 							<div className="text-muted-foreground text-sm">
-								Loading sounds...
+								{t("soundsPanel.loadingSounds")}
 							</div>
 						)}
 						{isSearching && searchQuery && (
-							<div className="text-muted-foreground text-sm">Searching...</div>
+							<div className="text-muted-foreground text-sm">
+								{t("soundsPanel.searchingSounds")}
+							</div>
 						)}
 						{displayedSounds.map((sound) => (
 							<AudioItem
@@ -296,7 +299,7 @@ function SoundEffectsView() {
 						)}
 						{isLoadingMore && (
 							<div className="text-muted-foreground py-4 text-center text-sm">
-								Loading more sounds...
+								{t("soundsPanel.loadingMoreSounds")}
 							</div>
 						)}
 					</div>
@@ -307,6 +310,7 @@ function SoundEffectsView() {
 }
 
 function SavedSoundsView() {
+	const { t } = useTranslation();
 	const {
 		savedSounds,
 		isLoadingSavedSounds,
@@ -384,7 +388,7 @@ function SavedSoundsView() {
 		return (
 			<div className="flex h-full items-center justify-center">
 				<div className="text-muted-foreground text-sm">
-					Loading saved sounds...
+					{t("soundsPanel.loadingSaved")}
 				</div>
 			</div>
 		);
@@ -394,7 +398,7 @@ function SavedSoundsView() {
 		return (
 			<div className="flex h-full items-center justify-center">
 				<div className="text-destructive text-sm">
-					Error: {savedSoundsError}
+					{t("soundsPanel.loadError", { message: savedSoundsError })}
 				</div>
 			</div>
 		);
@@ -408,9 +412,9 @@ function SavedSoundsView() {
 					className="text-muted-foreground size-10"
 				/>
 				<div className="flex flex-col gap-2 text-center">
-					<p className="text-lg font-medium">No saved sounds</p>
+					<p className="text-lg font-medium">{t("soundsPanel.noSaved")}</p>
 					<p className="text-muted-foreground text-sm text-balance">
-						Click the heart icon on any sound to save it here
+						{t("soundsPanel.noSavedDesc")}
 					</p>
 				</div>
 			</div>
@@ -421,8 +425,7 @@ function SavedSoundsView() {
 		<div className="mt-1 flex h-full flex-col gap-5">
 			<div className="flex items-center justify-between">
 				<p className="text-muted-foreground text-sm">
-					{savedSounds.length} saved{" "}
-					{savedSounds.length === 1 ? "sound" : "sounds"}
+					{t("soundsPanel.savedCount", { count: savedSounds.length })}
 				</p>
 				<Dialog open={showClearDialog} onOpenChange={setShowClearDialog}>
 					<DialogTrigger asChild>
@@ -431,20 +434,19 @@ function SavedSoundsView() {
 							size="sm"
 							className="text-muted-foreground hover:text-destructive h-auto !opacity-100"
 						>
-							Clear all
+							{t("soundsPanel.clearAll")}
 						</Button>
 					</DialogTrigger>
 					<DialogContent>
 						<DialogHeader>
-							<DialogTitle>Clear all saved sounds?</DialogTitle>
+							<DialogTitle>{t("soundsPanel.clearAllTitle")}</DialogTitle>
 							<DialogDescription>
-								This will permanently remove all {savedSounds.length} saved
-								sounds from your collection. This action cannot be undone.
+								{t("soundsPanel.clearAllDesc", { count: savedSounds.length })}
 							</DialogDescription>
 						</DialogHeader>
 						<DialogFooter>
 							<Button variant="text" onClick={() => setShowClearDialog(false)}>
-								Cancel
+								{t("soundsPanel.cancel")}
 							</Button>
 							<Button
 								variant="destructive"
@@ -456,7 +458,7 @@ function SavedSoundsView() {
 									setShowClearDialog(false);
 								}}
 							>
-								Clear all sounds
+								{t("soundsPanel.clearAllConfirm")}
 							</Button>
 						</DialogFooter>
 					</DialogContent>

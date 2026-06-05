@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
 	formatTimecode,
 	type FrameRate,
@@ -32,7 +33,8 @@ export function EditableTimecode({
 	className,
 	disabled = false,
 }: EditableTimecodeProps) {
-		const [isEditing, setIsEditing] = useState(false);
+	const { t } = useTranslation();
+	const [isEditing, setIsEditing] = useState(false);
 	const [inputValue, setInputValue] = useState("");
 	const [hasError, setHasError] = useState(false);
 	const inputRef = useRef<HTMLInputElement>(null);
@@ -153,7 +155,7 @@ export function EditableTimecode({
 				disabled && "cursor-default hover:bg-transparent",
 				className,
 			)}
-			title={disabled ? undefined : "Click to edit time"}
+			title={disabled ? undefined : t("propertiesPanel.clickToEdit")}
 		>
 			{formattedTime}
 		</button>

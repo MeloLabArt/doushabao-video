@@ -3,6 +3,7 @@
 import { Plus } from "lucide-react";
 import { type ReactNode, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import { useTranslation } from "react-i18next";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Button } from "@/components/ui/button";
 import {
@@ -50,6 +51,7 @@ export function DraggableItem({
 	const [dragPosition, setDragPosition] = useState({ x: 0, y: 0 });
 	const dragRef = useRef<HTMLDivElement>(null);
 	const editor = useEditor();
+	const { t } = useTranslation();
 
 	const handleAddToTimeline = () => {
 		onAddToTimeline?.({ currentTime: editor.playback.getCurrentTime() });
@@ -187,7 +189,7 @@ export function DraggableItem({
 								{shouldShowPlusOnDrag && (
 									<PlusButton
 										onClick={handleAddToTimeline}
-										tooltipText="Add to timeline or drag to position"
+										tooltipText={t("assetsPanel.dragTooltip")}
 									/>
 								)}
 							</AspectRatio>

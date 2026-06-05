@@ -24,6 +24,7 @@ import {
 import { usePropertyDraft } from "../hooks/use-property-draft";
 import { KeyframeToggle } from "./keyframe-toggle";
 import { Textarea } from "@/components/ui/textarea";
+import { useTranslation } from "react-i18next";
 
 export function PropertyParamField({
 	param,
@@ -42,6 +43,7 @@ export function PropertyParamField({
 		onToggle: () => void;
 	};
 }) {
+	const { t } = useTranslation();
 	return (
 		<SectionField
 			label={param.label}
@@ -50,7 +52,7 @@ export function PropertyParamField({
 					<KeyframeToggle
 						isActive={keyframe.isActive}
 						isDisabled={keyframe.isDisabled}
-						title={`Toggle ${param.label.toLowerCase()} keyframe`}
+						title={t("propertiesPanel.toggleKeyframe", { param: param.label.toLowerCase() })}
 						onToggle={keyframe.onToggle}
 					/>
 				) : undefined

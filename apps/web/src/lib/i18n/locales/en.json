@@ -20,7 +20,10 @@
     "notNow": "Not now",
     "selectAll": "Select all",
     "sortAscending": "Sort ascending",
-    "sortDescending": "Sort descending"
+    "sortDescending": "Sort descending",
+    "size": "Size",
+    "light": "Light",
+    "dark": "Dark"
   },
   "nav": {
     "projects": "Projects",
@@ -45,7 +48,8 @@
     "heroTitle2": "Video editor",
     "heroDesc": "A simple but powerful video editor that gets the job done. Works on any platform.",
     "tryBeta": "Try early beta",
-    "logoAlt": "Doushabao-Video Logo"
+    "logoAlt": "Doushabao-Video Logo",
+    "heroBgAlt": "Doushabao-Video video editor landing page background"
   },
   "footer": {
     "brandName": "Doushabao-Video",
@@ -177,7 +181,8 @@
     "video": "Video",
     "audio": "Audio",
     "unknown": "Unknown",
-    "noActiveProject": "No active project"
+    "noActiveProject": "No active project",
+    "dragTooltip": "Add to timeline or drag to position"
   },
   "settingsPanel": {
     "projectInfo": "Project info",
@@ -235,7 +240,9 @@
     "clearAllTitle": "Clear all saved sounds?",
     "clearAllDesc": "This will permanently remove all {{count}} saved sounds from your collection. This action cannot be undone.",
     "clearAllConfirm": "Clear all sounds",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "failedLoad": "Failed to load sounds",
+    "loadError": "Error: {{message}}"
   },
   "textPanel": {
     "text": "Text",
@@ -255,7 +262,8 @@
     "graphic": "Graphic",
     "clickToEdit": "Click to edit time",
     "collapseSection": "Collapse section",
-    "expandSection": "Expand section"
+    "expandSection": "Expand section",
+    "toggleKeyframe": "Toggle {{param}} keyframe"
   },
   "scenesView": {
     "scenes": "Scenes",
@@ -318,7 +326,12 @@
     "older": "Older",
     "newer": "Newer",
     "copyMarkdown": "Copy as markdown",
-    "copyMarkdownButton": "Copy markdown"
+    "copyMarkdownButton": "Copy markdown",
+    "sectionFeatures": "Features",
+    "sectionImprovements": "Improvements",
+    "sectionFixes": "Fixes",
+    "sectionBreaking": "Breaking Changes",
+    "sectionTechnical": "Technical details"
   },
   "storage": {
     "title": "Don't lose your projects",
@@ -339,7 +352,9 @@
     "cantProcess": "Couldn't process {{name}}",
     "processFailed": "Failed to process {{name}}",
     "noStorageGeneral": "Not enough browser storage",
-    "freeUpSpace": "Free up space or export projects to make room"
+    "freeUpSpace": "Free up space or export projects to make room",
+    "processingFiles": "Processing your files ({{progress}}%)",
+    "dragDropHint": "Drag and drop videos, photos, and audio files here"
   },
   "staticPages": {
     "roadmapTitle": "Roadmap",
@@ -455,6 +470,8 @@
     "content": "Content",
     "font": "Font",
     "spacing": "Spacing",
+    "letterSpacing": "Letter spacing",
+    "lineHeight": "Line height",
     "height": "Height",
     "width": "Width"
   },

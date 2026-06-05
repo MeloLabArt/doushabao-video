@@ -20,7 +20,10 @@
     "notNow": "稍后再说",
     "selectAll": "全选",
     "sortAscending": "升序排列",
-    "sortDescending": "降序排列"
+    "sortDescending": "降序排列",
+    "size": "大小",
+    "light": "亮色",
+    "dark": "暗色"
   },
   "nav": {
     "projects": "项目",
@@ -45,7 +48,8 @@
     "heroTitle2": "视频编辑器",
     "heroDesc": "一个简单而强大的视频编辑器，可在任何平台上运行。",
     "tryBeta": "试用 Beta 版",
-    "logoAlt": "Doushabao-Video 标志"
+    "logoAlt": "Doushabao-Video 标志",
+    "heroBgAlt": "Doushabao-Video 视频编辑器落地页背景"
   },
   "footer": {
     "brandName": "Doushabao-Video",
@@ -177,7 +181,8 @@
     "video": "视频",
     "audio": "音频",
     "unknown": "未知",
-    "noActiveProject": "没有活跃的项目"
+    "noActiveProject": "没有活跃的项目",
+    "dragTooltip": "添加到时间线或拖到指定位置"
   },
   "settingsPanel": {
     "projectInfo": "项目信息",
@@ -235,7 +240,9 @@
     "clearAllTitle": "清除所有已收藏的音效？",
     "clearAllDesc": "此操作将永久移除你收藏的所有 {{count}} 个音效，无法撤销。",
     "clearAllConfirm": "清除所有音效",
-    "cancel": "取消"
+    "cancel": "取消",
+    "failedLoad": "加载音效失败",
+    "loadError": "错误：{{message}}"
   },
   "textPanel": {
     "text": "文本",
@@ -255,7 +262,8 @@
     "graphic": "图形",
     "clickToEdit": "点击编辑时间",
     "collapseSection": "折叠区域",
-    "expandSection": "展开区域"
+    "expandSection": "展开区域",
+    "toggleKeyframe": "切换 {{param}} 关键帧"
   },
   "scenesView": {
     "scenes": "场景",
@@ -318,7 +326,12 @@
     "older": "更早",
     "newer": "更新",
     "copyMarkdown": "复制为 Markdown",
-    "copyMarkdownButton": "复制 Markdown"
+    "copyMarkdownButton": "复制 Markdown",
+    "sectionFeatures": "新功能",
+    "sectionImprovements": "改进",
+    "sectionFixes": "修复",
+    "sectionBreaking": "重大变更",
+    "sectionTechnical": "技术细节"
   },
   "storage": {
     "title": "不要丢失项目",
@@ -339,7 +352,9 @@
     "cantProcess": "无法处理 {{name}}",
     "processFailed": "处理 {{name}} 失败",
     "noStorageGeneral": "浏览器存储空间不足",
-    "freeUpSpace": "释放空间或导出项目来腾出更多空间"
+    "freeUpSpace": "释放空间或导出项目来腾出更多空间",
+    "processingFiles": "正在处理文件（{{progress}}%）",
+    "dragDropHint": "将视频、照片和音频文件拖放到此处"
   },
   "staticPages": {
     "roadmapTitle": "路线图",
@@ -455,6 +470,8 @@
     "content": "内容",
     "font": "字体",
     "spacing": "间距",
+    "letterSpacing": "字间距",
+    "lineHeight": "行高",
     "height": "高度",
     "width": "宽度"
   },
