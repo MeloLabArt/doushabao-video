@@ -4,13 +4,8 @@ import { useTranslation } from "react-i18next";
 import { Separator } from "@/components/ui/separator";
 import { type Tab, useAssetsPanelStore } from "@/components/editor/panels/assets/assets-panel-store";
 import { TabBar } from "./tabbar";
-import { Captions } from "@/subtitles/components/assets-view";
 import { MediaView } from "./views/assets";
 import { SettingsView } from "./views/settings";
-import { SoundsView } from "@/sounds/components/assets-view";
-import { StickersView } from "@/stickers/components/assets-view";
-import { TextView } from "@/text/components/assets-view";
-import { EffectsView } from "@/effects/components/assets-view";
 
 export function AssetsPanel() {
 	const { activeTab } = useAssetsPanelStore();
@@ -18,21 +13,6 @@ export function AssetsPanel() {
 	const { t } = useTranslation();
 	const viewMap: Record<Tab, React.ReactNode> = {
 		media: <MediaView />,
-		sounds: <SoundsView />,
-		text: <TextView />,
-		stickers: <StickersView />,
-		effects: <EffectsView />,
-		transitions: (
-			<div className="text-muted-foreground p-4">
-				{t("assetsPanel.transitionsComing")}
-			</div>
-		),
-		captions: <Captions />,
-		adjustment: (
-			<div className="text-muted-foreground p-4">
-				{t("assetsPanel.adjustmentComing")}
-			</div>
-		),
 		settings: <SettingsView />,
 	};
 
