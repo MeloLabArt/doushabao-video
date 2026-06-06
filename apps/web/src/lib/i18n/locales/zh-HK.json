@@ -641,16 +641,6 @@
     "graphic": "圖形軌道",
     "effect": "特效軌道"
   },
-  "transcription": {
-    "tiny": "微型",
-    "tinyDesc": "最快，準確度較低",
-    "small": "小型",
-    "smallDesc": "速度和準確度平衡",
-    "medium": "中型",
-    "mediumDesc": "準確度較高，速度較慢",
-    "largeV3Turbo": "大型 v3 Turbo",
-    "largeV3TurboDesc": "最佳準確度，需要 WebGPU 以獲得良好效能"
-  },
   "effects": {
     "blur": "模糊"
   },

@@ -641,16 +641,6 @@
     "graphic": "Graphic track",
     "effect": "Effect track"
   },
-  "transcription": {
-    "tiny": "Tiny",
-    "tinyDesc": "Fastest, lower accuracy",
-    "small": "Small",
-    "smallDesc": "Good balance of speed and accuracy",
-    "medium": "Medium",
-    "mediumDesc": "Higher accuracy, slower",
-    "largeV3Turbo": "Large v3 Turbo",
-    "largeV3TurboDesc": "Best accuracy, requires WebGPU for good performance"
-  },
   "effects": {
     "blur": "Blur"
   },

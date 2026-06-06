@@ -11,7 +11,6 @@ import { SelectionManager } from "./managers/selection-manager";
 import { ClipboardManager } from "./managers/clipboard-manager";
 import { DiagnosticsManager } from "./managers/diagnostics-manager";
 import { registerDefaultMasks } from "@/masks";
-import { registerTranscriptionDiagnostics } from "@/transcription/diagnostics";
 
 export class EditorCore {
 	private static instance: EditorCore | null = null;
@@ -42,7 +41,6 @@ export class EditorCore {
 		this.selection = new SelectionManager(this);
 		this.clipboard = new ClipboardManager(this);
 		this.diagnostics = new DiagnosticsManager(this);
-		registerTranscriptionDiagnostics({ diagnostics: this.diagnostics });
 		this.playback.bindTimelineScope();
 		this.command.registerReactor(() => {
 			const activeScene = this.scenes.getActiveSceneOrNull();
