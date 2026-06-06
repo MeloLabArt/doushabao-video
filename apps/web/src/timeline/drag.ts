@@ -17,10 +17,6 @@ export interface TextDragData extends BaseDragData {
 	content: string;
 }
 
-export interface StickerDragData extends BaseDragData {
-	type: "sticker";
-	stickerId: string;
-}
 
 export interface GraphicDragData extends BaseDragData {
 	type: "graphic";
@@ -31,5 +27,5 @@ export interface GraphicDragData extends BaseDragData {
 export type TimelineDragData =
 	| MediaDragData
 	| TextDragData
-	| StickerDragData
+	
 	| GraphicDragData;

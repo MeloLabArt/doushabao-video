@@ -1,6 +1,5 @@
 import type { SceneTracks, TimelineElement } from "@/timeline";
 import type { MediaAsset } from "@/media/types";
-import { STICKER_INTRINSIC_SIZE_FALLBACK } from "@/stickers/intrinsic-size";
 import { DEFAULT_GRAPHIC_SOURCE_SIZE } from "@/graphics";
 import { measureTextElement } from "@/text/measure-element";
 import {
@@ -102,7 +101,7 @@ function getTransformedRectBounds({
 
 /**
  * Bounds policy: bounds reflect base content geometry (text glyphs + background,
- * sticker/image/video content area) and base transform. Post-effect spill (blur,
+ * image/video content area) and base transform. Post-effect spill (blur,
  * glow) and mask-clipped regions are intentionally excluded — handles manipulate
  * the canonical element geometry, not visual effect output.
  */
@@ -139,20 +138,6 @@ function getElementBounds({
 		});
 	}
 
-	if (element.type === "sticker") {
-		const transform = resolveTransformAtTime({
-			baseTransform: buildTransformFromParams({ params: element.params }),
-			animations: element.animations,
-			localTime,
-		});
-		return getVisualElementBounds({
-			canvasWidth,
-			canvasHeight,
-			sourceWidth: element.intrinsicWidth ?? STICKER_INTRINSIC_SIZE_FALLBACK,
-			sourceHeight: element.intrinsicHeight ?? STICKER_INTRINSIC_SIZE_FALLBACK,
-			transform,
-		});
-	}
 
 	if (element.type === "graphic") {
 		const transform = resolveTransformAtTime({

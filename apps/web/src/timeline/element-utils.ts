@@ -7,7 +7,6 @@ import {
 	type CreateTimelineElement,
 	type CreateVideoElement,
 	type CreateImageElement,
-	type CreateStickerElement,
 	type CreateUploadAudioElement,
 	type CreateLibraryAudioElement,
 	type TextElement,
@@ -111,34 +110,6 @@ export function buildTextElement({
 	};
 }
 
-export function buildStickerElement({
-	stickerId,
-	name,
-	startTime,
-	intrinsicWidth,
-	intrinsicHeight,
-}: {
-	stickerId: string;
-	name?: string;
-	startTime: MediaTime;
-	intrinsicWidth?: number;
-	intrinsicHeight?: number;
-}): CreateStickerElement {
-	const stickerNameFromId =
-		stickerId.split(":").slice(1).pop()?.replaceAll("-", " ") ?? stickerId;
-	return {
-		type: "sticker",
-		name: name ?? stickerNameFromId,
-		stickerId,
-		intrinsicWidth,
-		intrinsicHeight,
-		duration: DEFAULT_NEW_ELEMENT_DURATION,
-		startTime,
-		trimStart: ZERO_MEDIA_TIME,
-		trimEnd: ZERO_MEDIA_TIME,
-		params: buildDefaultElementParams({ type: "sticker" }),
-	};
-}
 
 export function buildGraphicElement({
 	definitionId,

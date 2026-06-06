@@ -3,7 +3,6 @@ import type { ElementType, TrackType } from "@/timeline";
 const ELEMENT_TRACK_MAP: Record<ElementType, TrackType> = {
 	audio: "audio",
 	text: "text",
-	sticker: "graphic",
 	graphic: "graphic",
 	video: "video",
 	image: "video",

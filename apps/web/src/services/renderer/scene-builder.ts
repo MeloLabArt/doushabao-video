@@ -4,7 +4,6 @@ import { RootNode } from "./nodes/root-node";
 import { VideoNode } from "./nodes/video-node";
 import { ImageNode } from "./nodes/image-node";
 import { TextNode } from "./nodes/text-node";
-import { StickerNode } from "./nodes/sticker-node";
 import { GraphicNode } from "./nodes/graphic-node";
 import { ColorNode } from "./nodes/color-node";
 import { BlurBackgroundNode } from "./nodes/blur-background-node";
@@ -103,24 +102,6 @@ function buildTrackNodes({
 						canvasCenter: { x: canvasSize.width / 2, y: canvasSize.height / 2 },
 						canvasHeight: canvasSize.height,
 						textBaseline: "middle",
-					}),
-				);
-			}
-
-			if (element.type === "sticker") {
-				nodes.push(
-					new StickerNode({
-						stickerId: element.stickerId,
-						intrinsicWidth: element.intrinsicWidth,
-						intrinsicHeight: element.intrinsicHeight,
-						duration: element.duration,
-						timeOffset: element.startTime,
-						trimStart: element.trimStart,
-						trimEnd: element.trimEnd,
-						transform: buildTransformFromParams({ params: element.params }),
-						animations: element.animations,
-						opacity: readOpacityFromParams({ params: element.params }),
-						blendMode: readBlendModeFromParams({ params: element.params }),
 					}),
 				);
 			}

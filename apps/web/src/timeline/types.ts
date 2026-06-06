@@ -53,7 +53,7 @@ export interface AudioTrack extends BaseTrack {
 
 export interface GraphicTrack extends BaseTrack {
 	type: "graphic";
-	elements: (StickerElement | GraphicElement)[];
+	elements: GraphicElement[];
 	hidden: boolean;
 }
 
@@ -127,14 +127,6 @@ export interface TextElement extends BaseTimelineElement {
 	hidden?: boolean;
 }
 
-export interface StickerElement extends BaseTimelineElement {
-	type: "sticker";
-	stickerId: string;
-	/** Natural dimensions of the sticker asset, stored at insert time. Used by renderer and preview bounds to avoid split-brain geometry. */
-	intrinsicWidth?: number;
-	intrinsicHeight?: number;
-	hidden?: boolean;
-}
 
 export interface GraphicElement extends BaseTimelineElement {
 	type: "graphic";
@@ -150,7 +142,7 @@ export type TimelineElement =
 	| VideoElement
 	| ImageElement
 	| TextElement
-	| StickerElement
+
 	| GraphicElement;
 
 export type ElementType = TimelineElement["type"];
@@ -177,7 +169,6 @@ export const VISUAL_ELEMENT_TYPES = elementTypes(
 	"video",
 	"image",
 	"text",
-	"sticker",
 	"graphic",
 );
 
@@ -194,14 +185,13 @@ export type CreateAudioElement =
 export type CreateVideoElement = Omit<VideoElement, "id">;
 export type CreateImageElement = Omit<ImageElement, "id">;
 export type CreateTextElement = Omit<TextElement, "id">;
-export type CreateStickerElement = Omit<StickerElement, "id">;
 export type CreateGraphicElement = Omit<GraphicElement, "id">;
 export type CreateTimelineElement =
 	| CreateAudioElement
 	| CreateVideoElement
 	| CreateImageElement
 	| CreateTextElement
-	| CreateStickerElement
+
 	| CreateGraphicElement;
 
 export interface ElementDragState {

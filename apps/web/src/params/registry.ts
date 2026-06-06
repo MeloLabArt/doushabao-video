@@ -342,10 +342,6 @@ elementParamRegistry.register({
 	definition: [...textElementParams, ...visualElementParams],
 });
 elementParamRegistry.register({
-	key: "sticker",
-	definition: visualElementParams,
-});
-elementParamRegistry.register({
 	key: "graphic",
 	definition: visualElementParams,
 });

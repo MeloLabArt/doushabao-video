@@ -173,10 +173,6 @@ export class InsertElementCommand extends Command {
 			return false;
 		}
 
-		if (element.type === "sticker" && !element.stickerId) {
-			console.error("Sticker element must have stickerId");
-			return false;
-		}
 
 		if (element.type === "graphic") {
 			registerDefaultGraphics();

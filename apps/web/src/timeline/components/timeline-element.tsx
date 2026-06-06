@@ -58,7 +58,6 @@ import {
 	invokeAction,
 } from "@/actions";
 import { useElementSelection } from "@/timeline/hooks/element/use-element-selection";
-import { resolveStickerId } from "@/stickers";
 import { buildGraphicPreviewUrl } from "@/graphics";
 import Image from "next/image";
 import {
@@ -916,28 +915,6 @@ function TextElementContent({
 }
 
 
-function StickerElementContent({
-	element,
-}: {
-	element: Extract<TimelineElementType, { type: "sticker" }>;
-}) {
-	return (
-		<div className="flex size-full items-center gap-2 pl-2">
-			<Image
-				src={resolveStickerId({
-					stickerId: element.stickerId,
-					options: { width: 20, height: 20 },
-				})}
-				alt={element.name}
-				className="size-4 shrink-0"
-				width={20}
-				height={20}
-				unoptimized
-			/>
-			<span className="truncate text-xs text-white">{element.name}</span>
-		</div>
-	);
-}
 
 function GraphicElementContent({
 	element,
@@ -1115,8 +1092,6 @@ function ElementContent({ element, track }: ElementContentProps) {
 	switch (element.type) {
 		case "text":
 			return <TextElementContent element={element} />;
-		case "sticker":
-			return <StickerElementContent element={element} />;
 		case "graphic":
 			return <GraphicElementContent element={element} />;
 		case "audio":

@@ -25,7 +25,6 @@ import {
 	type ResolvedGraphicNodeState,
 } from "./nodes/graphic-node";
 import { ImageNode, loadImageSource } from "./nodes/image-node";
-import { StickerNode, loadStickerSource } from "./nodes/sticker-node";
 import { TextNode, type ResolvedTextNodeState } from "./nodes/text-node";
 import { VideoNode } from "./nodes/video-node";
 import type {
@@ -68,8 +67,6 @@ async function resolveNode({
 		node.resolved = await resolveVideoNode({ node, context });
 	} else if (node instanceof ImageNode) {
 		node.resolved = await resolveImageNode({ node, context });
-	} else if (node instanceof StickerNode) {
-		node.resolved = await resolveStickerNode({ node, context });
 	} else if (node instanceof GraphicNode) {
 		node.resolved = resolveGraphicNode({ node, context });
 	} else if (node instanceof TextNode) {
@@ -196,33 +193,6 @@ async function resolveImageNode({
 	};
 }
 
-async function resolveStickerNode({
-	node,
-	context,
-}: {
-	node: StickerNode;
-	context: ResolveContext;
-}): Promise<ResolvedVisualSourceNodeState | null> {
-	const source = await loadStickerSource({ stickerId: node.params.stickerId });
-	const sourceWidth = node.params.intrinsicWidth ?? source.width;
-	const sourceHeight = node.params.intrinsicHeight ?? source.height;
-	const visualState = resolveVisualState({
-		params: node.params,
-		context,
-		sourceWidth,
-		sourceHeight,
-	});
-	if (!visualState) {
-		return null;
-	}
-
-	return {
-		...visualState,
-		source: source.source,
-		sourceWidth,
-		sourceHeight,
-	};
-}
 
 function resolveGraphicNode({
 	node,

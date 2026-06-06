@@ -47,7 +47,7 @@ export type TextureCanvasDrawFn = (
 
 /**
  * A layer texture whose pixels come from somewhere outside the renderer —
- * typically a decoded video/image frame or a sticker. Cached by reference
+ * typically a decoded video/image frame. Cached by reference
  * identity of the source object.
  */
 export type ExternalTextureDescriptor = {

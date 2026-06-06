@@ -10,7 +10,6 @@ import type { FrameRate } from "opencut-wasm";
 import {
 	buildTextElement,
 	buildGraphicElement,
-	buildStickerElement,
 	buildElementFromMedia,
 } from "@/timeline/element-utils";
 import { AddTrackCommand, InsertElementCommand } from "@/commands/timeline";
@@ -86,8 +85,6 @@ function elementTypeFromDrag({
 			return "text";
 		case "graphic":
 			return "graphic";
-		case "sticker":
-			return "sticker";
 		case "media":
 			return dragData.mediaType;
 	}
@@ -356,8 +353,6 @@ export class DragDropController {
 			case "graphic":
 				this.executeGraphicDrop({ target, dragData });
 				return;
-			case "sticker":
-				this.executeStickerDrop({ target, dragData });
 				return;
 			case "media":
 				this.executeMediaDrop({ target, dragData });
@@ -382,20 +377,6 @@ export class DragDropController {
 		this.insertAtTarget({ element, target, trackType: "text" });
 	}
 
-	private executeStickerDrop({
-		target,
-		dragData,
-	}: {
-		target: DropTarget;
-		dragData: Extract<TimelineDragData, { type: "sticker" }>;
-	}): void {
-		const element = buildStickerElement({
-			stickerId: dragData.stickerId,
-			name: dragData.name,
-			startTime: target.xPosition,
-		});
-		this.insertAtTarget({ element, target, trackType: "graphic" });
-	}
 
 	private executeGraphicDrop({
 		target,
